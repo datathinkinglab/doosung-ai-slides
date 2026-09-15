@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>두성종이 AI 업무활용 심화교육(2차) — 강의 슬라이드</title>
+<style>
+:root{
+  --ink:#16202c; --navy:#1f3a5f; --blue:#2f6fb5; --muted:#6b7785; --line:#dfe4ea;
+  --paper:#ffffff; --stage:#e6eaf0; --soft:#f4f6f9; --brand:#c0653f;
+  --ok:#2f7a4f; --okbg:#edf6f0; --warn:#9a6b12; --warnbg:#fdf5e3;
+  --dan:#b03a2e; --danbg:#fdeeec; --info:#2b5f96; --infobg:#eef4fb;
+  --hand:#a0522d; --handbg:#fdf1e9;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--stage);color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","맑은 고딕",-apple-system,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage & slide ---------- */
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#track{width:1280px;height:720px;position:relative;transform-origin:center center}
+.slide{position:absolute;inset:0;background:var(--paper);border-radius:6px;
+  box-shadow:0 18px 50px rgba(20,32,48,.22);padding:44px 62px 58px;display:none;
+  flex-direction:column;overflow:hidden}
+.slide.on{display:flex}
+.slide.cover,.slide.section,.slide.end{justify-content:center}
+
+/* ---------- slide chrome ---------- */
+.kick{font-size:14px;font-weight:700;color:var(--blue);letter-spacing:.2px;
+  display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.kick::before{content:"";width:20px;height:3px;background:var(--blue);border-radius:2px;flex:none}
+.kick .tm{margin-left:auto;font-weight:600;color:var(--muted);font-size:12.5px;
+  background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px 11px}
+h1.t{font-size:32px;line-height:1.28;margin:0 0 15px;letter-spacing:-.6px;color:var(--navy);font-weight:800}
+h1.t small{display:block;font-size:15.5px;font-weight:600;color:var(--muted);margin-top:7px;letter-spacing:0}
+.body{flex:1;min-height:0;font-size:16px;line-height:1.62;overflow:hidden;display:flex;flex-direction:column}
+.body.mid{justify-content:center}
+.bin{transform-origin:top left;flex:none;width:100%}
+
+/* ---------- footer with logo + copyright ---------- */
+.foot{position:absolute;left:62px;right:62px;bottom:18px;display:flex;justify-content:space-between;
+  align-items:center;font-size:11.5px;color:#9aa4b0;border-top:1px solid var(--line);padding-top:9px;gap:14px}
+.foot .fl{display:flex;align-items:center;gap:10px;min-width:0}
+.foot .fl img{height:15px;width:auto;display:block;flex:none}
+.foot .fl span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.foot b{color:var(--navy);font-weight:700}
+.foot .fr{display:flex;align-items:center;gap:12px;white-space:nowrap;flex:none}
+.foot .cr{color:#aab3bd}
+.foot .pgno{color:var(--navy);font-weight:700}
+
+/* ---------- typography bits ---------- */
+.lead{font-size:18px;line-height:1.6;color:#2c3a4b;margin:0 0 16px}
+.lead b,.body b{color:var(--navy);font-weight:700}
+.body p{margin:0 0 11px}
+.q{font-size:21px;font-weight:800;color:var(--navy);line-height:1.45;
+  border-left:5px solid var(--blue);padding:6px 0 6px 18px;margin:13px 0}
+.q.sm{font-size:18px}
+.small{font-size:13.5px;color:var(--muted)}
+.mono{font-family:"D2Coding","Consolas","Menlo",monospace}
+ul.b,ol.b{margin:0 0 11px;padding-left:22px}
+ul.b li,ol.b li{margin:0 0 8px}
+ul.b{list-style:none;padding-left:0}
+ul.b>li{position:relative;padding-left:19px}
+ul.b>li::before{content:"";position:absolute;left:2px;top:.62em;width:7px;height:7px;
+  border-radius:50%;background:var(--blue)}
+ul.chk{list-style:none;padding-left:0;margin:0 0 11px}
+ul.chk>li{position:relative;padding-left:26px;margin-bottom:8px}
+ul.chk>li::before{content:"☐";position:absolute;left:0;top:-1px;font-size:16px;color:var(--blue);font-weight:700}
+
+/* ---------- callouts ---------- */
+.cal{border-radius:9px;padding:13px 17px 13px 16px;margin:11px 0;font-size:15.5px;line-height:1.56;
+  border-left:5px solid var(--blue);background:var(--infobg);color:#22344a}
+.cal .ch{font-weight:800;display:block;margin-bottom:4px}
+.cal.ok{border-color:var(--ok);background:var(--okbg)} .cal.ok .ch{color:var(--ok)}
+.cal.warn{border-color:#d9a441;background:var(--warnbg)} .cal.warn .ch{color:var(--warn)}
+.cal.dan{border-color:#d1584a;background:var(--danbg)} .cal.dan .ch{color:var(--dan)}
+.cal.hand{border-color:#d08a55;background:var(--handbg)} .cal.hand .ch{color:var(--hand)}
+.cal.info .ch{color:var(--info)}
+.cal.gray{border-color:#b9c2cd;background:var(--soft);color:#3a4756} .cal.gray .ch{color:var(--navy)}
+.cal.sm{font-size:14px;padding:11px 15px}
+
+/* ---------- grids & cards ---------- */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{border:1px solid var(--line);border-radius:9px;padding:14px 16px;background:#fff}
+.card.fill{background:var(--soft)}
+.card h4{margin:0 0 8px;font-size:15.5px;color:var(--navy);font-weight:800}
+.card ul.b li{margin-bottom:6px;font-size:14.5px}
+.card.no{border-color:#e8c4bf;background:#fdf4f2} .card.no h4{color:var(--dan)}
+.card.yes{border-color:#bcdcc7;background:#f1f8f3} .card.yes h4{color:var(--ok)}
+
+/* ---------- stat tiles ---------- */
+.kpi{border:1px solid var(--line);border-radius:9px;padding:12px 14px;background:#fff}
+.kpi .n{font-size:27px;font-weight:800;color:var(--navy);line-height:1.1;letter-spacing:-1px}
+.kpi .n em{font-style:normal;font-size:15px;font-weight:700;color:var(--muted);margin-left:3px}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.45}
+.kpi.red .n{color:var(--dan)} .kpi.amber .n{color:#b9832a} .kpi.green .n{color:var(--ok)}
+
+/* ---------- tables ---------- */
+table.tb{width:100%;border-collapse:collapse;font-size:14.5px;margin:5px 0 11px}
+table.tb th{background:var(--navy);color:#fff;font-weight:700;font-size:13px;padding:9px 11px;text-align:left;
+  border:1px solid var(--navy)}
+table.tb td{border:1px solid var(--line);padding:8px 11px;vertical-align:top;line-height:1.5}
+table.tb tr:nth-child(even) td{background:#fafbfc}
+table.tb td b{color:var(--navy)}
+table.tb.sm{font-size:13.2px} table.tb.sm th{font-size:12px;padding:7px 9px} table.tb.sm td{padding:7px 9px}
+table.tb.xs{font-size:12.4px} table.tb.xs th{font-size:11.5px;padding:6px 8px} table.tb.xs td{padding:6px 8px}
+table.tb .c{text-align:center}
+table.tb .hl td{background:#fdf5e3!important}
+table.tb td.hl{background:#fdf5e3!important}
+
+/* ---------- prompt block ---------- */
+.pw{position:relative;margin:9px 0 11px}
+.pw .cp{position:absolute;top:8px;right:8px;border:1px solid #46586d;background:#2b3b4e;color:#e8eef5;
+  font:600 11.5px/1 inherit;padding:6px 11px;border-radius:5px;cursor:pointer;letter-spacing:.2px}
+.pw .cp:hover{background:#3a4d63}
+.pw .cp.done{background:var(--ok);border-color:var(--ok)}
+pre.prompt{margin:0;background:#1f2b38;color:#dce6f1;border-radius:8px;padding:14px 16px;
+  font-family:"D2Coding","Consolas","Menlo",monospace;font-size:13px;line-height:1.55;
+  white-space:pre-wrap;word-break:break-word}
+pre.prompt.sm{font-size:12px;line-height:1.5}
+pre.prompt .h{color:#7fc4ff;font-weight:700}
+pre.prompt .v{color:#ffd17a}
+pre.prompt .k{color:#9fe0a8}
+
+/* ---------- diagram / flow ---------- */
+pre.dia{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:13px 15px;
+  font-family:"D2Coding","Consolas","Menlo",monospace;font-size:12.5px;line-height:1.5;margin:8px 0 11px;
+  white-space:pre;color:#2c3a4b}
+.flow{display:flex;align-items:stretch;gap:7px;margin:12px 0}
+.flow .fs{flex:1;border:1px solid var(--line);border-radius:9px;padding:11px 9px;text-align:center;background:#fff}
+.flow .fs .t1{font-size:14.5px;font-weight:800;color:var(--navy)}
+.flow .fs .t2{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}
+.flow .ar{align-self:center;color:#9aa4b0;font-size:16px;font-weight:700}
+
+/* ---------- chips ---------- */
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+.chip{font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 12px;background:var(--soft);
+  color:var(--navy);border:1px solid var(--line)}
+.chip.hand{background:var(--handbg);color:var(--hand);border-color:#eccfb8}
+.chip.ai{background:var(--infobg);color:var(--info);border-color:#cfe0f2}
+.chip.team{background:var(--okbg);color:var(--ok);border-color:#c3e0cd}
+.chip.out{background:#efe9fb;color:#5b4396;border-color:#d9cff2}
+
+/* ---------- done bar ---------- */
+.done{margin-top:auto;border:1px solid #bcdcc7;background:var(--okbg);border-radius:9px;
+  padding:11px 16px;font-size:15px;line-height:1.55;color:#23503a;display:flex;gap:11px;align-items:flex-start}
+.done .i{font-weight:800;color:var(--ok);flex:none}
+.done b{color:#1c4632}
+
+/* ---------- cover / section / end ---------- */
+.cover{background:linear-gradient(150deg,#1f3a5f 0%,#2a5a8f 62%,#347bb5 100%);color:#fff;
+  padding:0 78px;justify-content:center}
+.cover .clogo{height:38px;width:auto;margin-bottom:30px;display:block;align-self:flex-start;flex:none}
+.cover .cv1{font-size:13px;letter-spacing:3px;font-weight:700;opacity:.78;margin-bottom:14px}
+.cover h1{font-size:48px;line-height:1.2;margin:0 0 13px;font-weight:800;letter-spacing:-1.5px}
+.cover .cv2{font-size:20px;opacity:.92;font-weight:500;margin-bottom:30px;line-height:1.5}
+.cover .cvm{display:flex;gap:34px;font-size:14px;opacity:.9;border-top:1px solid rgba(255,255,255,.28);padding-top:18px}
+.cover .cvm b{display:block;font-size:11.5px;opacity:.72;font-weight:600;margin-bottom:4px;letter-spacing:.5px}
+
+.section{background:var(--navy);color:#fff;padding:0 78px}
+.section .sn{font-size:74px;font-weight:800;opacity:.22;line-height:1;letter-spacing:-3px;margin-bottom:4px}
+.section h1{font-size:39px;margin:0 0 11px;font-weight:800;letter-spacing:-1.2px;line-height:1.22}
+.section .ss{font-size:17.5px;opacity:.88;line-height:1.55;max-width:880px;margin-bottom:22px}
+.section .sg{display:flex;gap:9px;flex-wrap:wrap}
+.section .sg span{border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:6px 14px;font-size:13.5px;
+  background:rgba(255,255,255,.08)}
+.section .slogo{position:absolute;top:44px;right:62px;height:22px;width:auto;opacity:.5}
+
+.end{background:linear-gradient(150deg,#1f3a5f 0%,#2a5a8f 100%);color:#fff;padding:0 78px}
+.end .clogo{height:32px;width:auto;margin-bottom:26px;display:block;align-self:flex-start;flex:none}
+.end h1{font-size:40px;margin:0 0 16px;font-weight:800;letter-spacing:-1.2px}
+.end .el{font-size:19px;line-height:1.62;opacity:.94;max-width:900px}
+.end .ec{margin-top:26px;font-size:14.5px;opacity:.85;border-top:1px solid rgba(255,255,255,.26);padding-top:16px}
+
+.cover .foot,.section .foot,.end .foot{border-top-color:rgba(255,255,255,.2);color:rgba(255,255,255,.62)}
+.cover .foot b,.section .foot b,.end .foot b{color:#fff}
+.cover .foot .cr,.section .foot .cr,.end .foot .cr{color:rgba(255,255,255,.55)}
+.cover .foot .pgno,.section .foot .pgno,.end .foot .pgno{color:#fff}
+.cover .foot{left:78px;right:78px} .section .foot{left:78px;right:78px} .end .foot{left:78px;right:78px}
+
+/* ---------- UI chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--blue);z-index:40;transition:width .18s ease}
+#ui{position:fixed;right:16px;bottom:14px;display:flex;gap:7px;z-index:45}
+#ui button{border:1px solid #c3ccd7;background:rgba(255,255,255,.94);color:var(--navy);border-radius:7px;
+  font:600 12.5px/1 inherit;padding:8px 12px;cursor:pointer}
+#ui button:hover{background:#fff;border-color:var(--blue)}
+#pg{position:fixed;left:16px;bottom:14px;z-index:45;font-size:12.5px;color:#5b6775;
+  background:rgba(255,255,255,.9);border:1px solid #c3ccd7;border-radius:7px;padding:5px 7px;font-weight:600;
+  display:flex;align-items:center;gap:7px}
+#pg button{border:1px solid #c3ccd7;background:#fff;color:var(--navy);border-radius:5px;width:26px;height:24px;
+  font:700 15px/1 inherit;cursor:pointer;padding:0}
+#pg button:hover{border-color:var(--blue);background:#f2f6fb}
+/* 발표용 부가 UI */
+#timer{position:fixed;top:12px;right:16px;z-index:45;display:flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.92);border:1px solid #c3ccd7;border-radius:8px;padding:6px 8px 6px 12px;
+  font:700 13px/1 inherit;color:var(--navy)}
+#timer .tv{font-variant-numeric:tabular-nums;letter-spacing:.5px;min-width:52px;text-align:center}
+#timer button{border:1px solid #c3ccd7;background:#fff;color:var(--navy);border-radius:6px;
+  font:600 11.5px/1 inherit;padding:6px 9px;cursor:pointer}
+#timer button:hover{border-color:var(--blue)}
+#timer.run .tv{color:var(--ok)}
+#black{position:fixed;inset:0;background:#0b1118;z-index:70;display:none}
+#black.on{display:block}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:64px;z-index:80;
+  background:rgba(22,32,44,.94);color:#fff;border-radius:8px;padding:10px 18px;font-size:13.5px;
+  opacity:0;transition:opacity .22s ease;pointer-events:none;font-weight:600}
+#toast.on{opacity:1}
+#tocq{width:100%;max-width:420px;margin:0 0 16px;border:1px solid #3a4c61;background:#16232f;color:#e9eef4;
+  border-radius:7px;padding:9px 12px;font:500 13.5px/1 inherit;outline:none}
+#tocq:focus{border-color:#7fc4ff}
+#tocq::placeholder{color:#7d8e9f}
+
+/* 클릭 가능한 체크 항목 */
+ul.chk>li{cursor:pointer;border-radius:6px;padding-top:1px;padding-bottom:1px;transition:background .12s}
+ul.chk>li:hover{background:#f2f6fb}
+ul.chk>li.done::before{content:"☑";color:var(--ok)}
+ul.chk>li.done{color:#7c8794;text-decoration:line-through;text-decoration-color:#c3ccd7}
+td.tick{cursor:pointer;text-align:center;user-select:none}
+td.tick:hover{background:#f2f6fb!important}
+td.tick.done{color:var(--ok);font-weight:800}
+
+#toc{position:fixed;inset:0;background:rgba(16,26,38,.96);z-index:60;display:none;padding:30px 44px;
+  overflow:auto;color:#e9eef4}
+#toc.on{display:block}
+#toc .tbar{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+#toc .tbar img{height:20px;width:auto}
+#toc h2{margin:0;font-size:20px;font-weight:800;color:#fff}
+#toc .th{font-size:13px;color:#9fb2c6;margin-bottom:18px}
+#toc .grp{margin-bottom:18px}
+#toc .gt{font-size:12.5px;font-weight:800;color:#7fc4ff;letter-spacing:1px;margin-bottom:8px}
+#toc .row{display:flex;flex-wrap:wrap;gap:6px}
+#toc .it{border:1px solid #3a4c61;border-radius:6px;padding:7px 11px;font-size:13px;cursor:pointer;
+  background:#1b2937;max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#toc .it:hover{background:#26384b;border-color:#7fc4ff}
+#toc .it i{font-style:normal;color:#8ba0b6;margin-right:7px;font-size:11.5px}
+#toc .close{position:absolute;top:22px;right:30px;border:1px solid #3a4c61;background:#1b2937;color:#e9eef4;
+  border-radius:7px;padding:8px 13px;font:600 12.5px/1 inherit;cursor:pointer}
+#hint{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:44;font-size:12.5px;
+  color:#5b6775;background:rgba(255,255,255,.9);border:1px solid #c3ccd7;border-radius:7px;padding:8px 14px;
+  transition:opacity .4s ease}
+#hint.hide{opacity:0;pointer-events:none}
+
+/* ---------- print ---------- */
+@media print{
+  @page{size:A4 landscape;margin:0}
+  html,body{overflow:visible;background:#fff;height:auto}
+  #stage{position:static;display:block}
+  #track{width:auto;height:auto;transform:none!important}
+  #bar,#ui,#pg,#toc,#hint,#timer,#black,#toast{display:none!important}
+  ul.chk>li{cursor:auto} ul.chk>li.done{color:inherit;text-decoration:none}
+  td.tick{cursor:auto}
+  .slide{position:relative;display:flex!important;inset:auto;width:297mm;height:209mm;
+    border-radius:0;box-shadow:none;page-break-after:always;break-after:page;padding:14mm 17mm 17mm;overflow:hidden}
+  .slide:last-child{page-break-after:auto}
+  .cover,.section,.end{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  table.tb th,pre.prompt,.cal,.kpi,.card,.done,.chip,.kick .tm{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pw .cp{display:none}
+  .foot{left:17mm;right:17mm;bottom:8mm}
+  .cover .foot,.section .foot,.end .foot{left:17mm;right:17mm}
+}
+</style></head><body>
+<div id="bar"></div>
+<div id="stage"><div id="track"></div></div>
+<div id="pg"><button id="bprev" title="이전 (←)">‹</button><span id="pgn">1</span> / <span id="pgt">1</span><button id="bnext" title="다음 (→)">›</button></div>
+<div id="timer"><span class="tv" id="tv">00:00</span><button id="tstart">시작</button><button id="treset">리셋</button></div>
+<div id="ui">
+  <button id="btoc">목차 (O)</button>
+  <button id="bprint">인쇄 · PDF</button>
+  <button id="bfull">전체화면 (F)</button>
+</div>
+<div id="hint">← → 이동 · O 목차 · F 전체화면 · B 화면 끄기 · 체크 항목과 복사 버튼은 눌러서 씁니다</div>
+<div id="black"></div>
+<div id="toast"></div>
+<div id="toc"><button class="close" id="btocx">닫기 (Esc)</button>
+  <div class="tbar"><img id="toclogo" alt="Data Thinking Lab"><h2>두성종이 AI 업무활용 심화교육(2차)</h2></div>
+  <div class="th">강의 슬라이드 목차 — 항목을 누르면 해당 슬라이드로 이동합니다 &nbsp;·&nbsp;
+    단축키: <b>← →</b> 이동 · <b>O</b> 목차 · <b>F</b> 전체화면 · <b>B</b> 화면 끄기 · <b>T</b> 타이머 · <b>C</b> 체크 초기화 · <b>P</b> 인쇄</div>
+  <input id="tocq" type="text" placeholder="제목으로 검색 (예: 규칙, 검산, Skill)" autocomplete="off">
+  <div id="tocb"></div>
+</div>
+<script>
+
+/* ============ 브랜딩 ============ */
+const LOGO_DARK='data:image/png;base64,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';
+const LOGO_LIGHT='data:image/png;base64,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';
+const COPY='© 2026 Data Thinking Lab. All rights reserved.';
+const COURSE='두성종이 AI 업무활용 심화교육(2차)';
+
+/* ============ 공통 헬퍼 ============ */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function promptHTML(txt,cls){
+  const lines=esc(txt).split('\n').map(l=>{
+    if(/^(역할|상황|목표|조건|출력|첨부|포함|사용자|필요한 행동|입력과 출력|통과 기준)\s*:/.test(l))
+      return '<span class="k">'+l+'</span>';
+    if(/^#\s/.test(l))            return '<span class="h">'+l+'</span>';
+    if(/^\[[^\]]+\]\s*$/.test(l)) return '<span class="v">'+l+'</span>';
+    return l;
+  }).join('\n');
+  return '<div class="pw"><button class="cp">복사</button><pre class="prompt'+(cls?' '+cls:'')+'">'+lines+'</pre></div>';
+}
+
+const DECK=[];
+
+/* ===================== 오프닝 ===================== */
+DECK.push({type:'cover',
+  eyebrow:'기업교육 · 개정 2026-09-15',
+  h:'AI 업무활용 심화교육 <span style="opacity:.72">(2차)</span>',
+  sub:'데이터로 판단하고, 다시 쓸 수 있는 업무도구 완성하기',
+  meta:[['대상','1차 교육 이수자 · 전 직군'],['운영','1일 8시간 · 팀 실습 중심'],
+        ['산출물','분석 근거 + 업무도구 1개 + 재실행 안내'],['강사','이승묵 Ph.D']]
+});
+
+DECK.push({k:'오프닝', h:'오늘은 업무 하나를 끝까지 완성합니다',
+  c:`<p class="lead">여러 주제를 훑지 않습니다. <b>납기 점검</b>이라는 업무 하나를 자료 확인부터 도구 제작, 재실행까지 끝냅니다.</p>
+   <div class="q">“2026-08-31 기준, 기한 경과 또는 향후 7일 이내 납기 주문 중<br>어떤 품목을 먼저 확인해야 하며, 근거와 대응 방안을 어떻게 정리할까?”</div>
+   <div class="flow">
+     <div class="fs"><div class="t1">자료 확인</div><div class="t2">무엇이 들어 있나</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">위험 품목 판단</div><div class="t2">무엇을 먼저 볼까</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">대응 보고</div><div class="t2">누구에게 무엇을</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">업무도구 제작</div><div class="t2">같은 판단을 화면으로</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">새 자료로 재실행</div><div class="t2">다음에도 되는가</div></div></div>`
+});
+
+DECK.push({k:'오프닝', h:'1차와 무엇이 다른가',
+  c:`<div class="g2">
+     <div class="card fill"><h4>1차에서 한 것</h4>
+       <ul class="b"><li><b>주어진</b> 납기 이슈를 문서로 작성</li>
+       <li>보고서 · 고객 이메일 · 실행계획 초안</li>
+       <li>문제정의와 검토 기준 정리</li>
+       <li>HTML 문서 생성기 <b>제작 경험</b></li></ul></div>
+     <div class="card"><h4>2차에서 하는 것</h4>
+       <ul class="b"><li>여러 자료에서 <b>확인 대상을 직접 발견</b></li>
+       <li>계산을 <b>원본으로 검산</b>하고 오류를 분리</li>
+       <li>같은 기준을 <b>화면과 절차로</b> 고정</li>
+       <li>새 자료를 넣어도 <b>같은 규칙이 작동</b>하는지 검증</li></ul></div></div>
+   <div class="cal info"><span class="ch">한 문장으로</span>
+     1차는 <b>AI에게 일을 시키는 법</b>을 배웠고, 2차는 <b>그 일을 다음에도 똑같이 반복할 수 있게 만드는 법</b>을 배웁니다.</div>`
+});
+
+DECK.push({k:'오프닝', h:'운영과 산출물',
+  c:`<table class="tb sm"><tr><th style="width:120px">대상</th><td>1차 교육 이수자 · 수입 / 영업 / 물류 / 관리 등 전 직군</td></tr>
+   <tr><th>자료</th><td>교육용 가상 CSV. <b>공통 3종(주문·출고·재고)</b> · 입고는 선택 확장 · 마케팅은 교육 후 선택</td></tr>
+   <tr><th>환경</th><td>수업 전 AI 환경 <b>하나</b>를 정하고 <b>파일 읽기 · 파일 생성 · Skill 등록</b> 가능 여부를 점검</td></tr>
+   <tr><th>산출물</th><td><b>분석 근거 묶음 + 납기 확인 도구 1개 + 검증·재실행 안내</b></td></tr></table>
+   <div class="g3">
+     <div class="kpi"><div class="n">근거</div><div class="l">품목별 확인표 · 품질 점검표 · 납기 점검 보고서</div></div>
+     <div class="kpi"><div class="n">도구</div><div class="l"><span class="mono">index_final.html</span> 과 규칙 v1</div></div>
+     <div class="kpi"><div class="n">재사용</div><div class="l">M3 테스트 기록 · Skill 또는 수동 절차 · 실행 안내</div></div></div>
+   <div class="cal gray sm"><span class="ch">개인 앱을 따로 만들지 않습니다</span>
+     별도 개인 앱을 새로 만드는 대신 <b>같은 도구에 직무별 기능 하나</b>를 보완합니다.
+     Skill 등록이 불가능한 팀은 절차 파일을 새 작업에 직접 제공하고 적용 방식을 기록합니다.</div>`
+});
+
+DECK.push({k:'오프닝 · 시간표', h:'오전 — 데이터에서 판단 근거 찾기',
+  c:`<table class="tb"><tr><th style="width:130px">시간</th><th>활동</th><th style="width:290px">확인할 결과</th></tr>
+   <tr><td>08:30–09:20</td><td><b>M1-1</b> 1차 수행 점검 15분 · 질문과 완료 기준</td><td>핵심 질문 1개와 규칙 v1</td></tr>
+   <tr><td>09:20–10:20</td><td><b>M1-2</b> 주문·출고 연결 후 재고 추가</td><td>품질 점검표 · 품목별 확인표</td></tr>
+   <tr><td>10:30–11:20</td><td><b>M1-3</b> 우선 확인 품목 선정 · 선택 입고 확장</td><td>근거 · 가설 · 담당자 질문</td></tr>
+   <tr><td>11:20–12:00</td><td><b>M1-4</b> 보고서 작성 · 오후 요구사항으로 연결</td><td>보고서 1장 · 검산 사례</td></tr>
+   <tr class="hl"><td colspan="3" class="c">12:00–13:00 &nbsp;중식</td></tr></table>
+   <div class="cal ok sm"><span class="ch">오전이 끝나면 손에 남는 것</span>
+     <b>품목별 납기 확인표</b> · <b>데이터 품질 점검표</b> · <b>납기 점검 보고서 1장</b> —
+     이 세 가지가 오후 도구의 입력값이자 정답지가 됩니다.</div>`
+});
+
+DECK.push({k:'오프닝 · 시간표', h:'오후 — 같은 판단을 도구와 절차로 만들기',
+  c:`<table class="tb"><tr><th style="width:130px">시간</th><th>활동</th><th style="width:290px">확인할 결과</th></tr>
+   <tr><td>13:00–13:50</td><td><b>M2-1</b> 입력 · 계산 · 출력 설계</td><td>화면 요구사항</td></tr>
+   <tr><td>14:00–14:50</td><td><b>M2-2</b> HTML 도구 구현</td><td>오전 결과와 일치하는 v1</td></tr>
+   <tr><td>15:00–15:50</td><td><b>M3</b> 합성 데이터 · 예외 테스트</td><td>재실행이 검증된 v2</td></tr>
+   <tr><td>16:00–16:25</td><td><b>M4</b> 직무별 기능 하나 개선</td><td>최종 도구</td></tr>
+   <tr><td>16:25–16:50</td><td><b>Work·Skill</b> 오늘의 절차를 Skill로 제작 · 등록</td><td>새 작업에서 테스트 또는 수동 재사용</td></tr>
+   <tr><td>17:00–17:15</td><td><b>마무리</b> 동료 인수인계 · 다음 적용 계획</td><td>실행 안내 · 남은 한계</td></tr></table>`
+});
+
+DECK.push({k:'오프닝', h:'강사가 강조할 세 가지',
+  c:`<div class="cal dan"><span class="ch">① 자료에 없는 사실은 확인 질문으로 남긴다</span>
+     모르는 것을 그럴듯한 문장으로 메우지 않습니다. <b>“확인 필요”</b>라고 적는 것이 정답입니다.</div>
+   <div class="cal warn"><span class="ch">② 화면의 숫자를 원본 주문과 계산식으로 설명할 수 있어야 한다</span>
+     숫자가 맞는지가 아니라 <b>어디서 왔는지</b>를 따라갈 수 있어야 합니다.</div>
+   <div class="cal ok"><span class="ch">③ 새 자료를 넣어도 같은 규칙이 적용되어야 한다</span>
+     오늘 한 번 맞은 결과보다, <b>다음 자료에서도 같은 기준으로 돌아가는지</b>가 심화의 기준입니다.</div>
+   <div class="cal gray sm"><span class="ch">운영 방법</span>
+     기본 개념은 1차 수행 점검에서 <b>필요한 만큼만</b> 복습합니다. 설명 다음에 바로 실습하고 결과를 확인합니다.
+     느린 팀은 <b>공통 3파일 분석과 검산</b>을 우선하고 직무 확장을 줄입니다.
+     빠른 팀은 입고 자료를 추가하되 <b>인과관계를 단정하지 않습니다.</b></div>`
+});
+
+DECK.push({k:'오프닝', h:'오늘의 완료 체크와 안전 기준',
+  c:`<ul class="chk" style="font-size:17px">
+     <li>원본 자료로 계산을 <b>검산</b>했다.</li>
+     <li><b>기한 경과 · 참고 부족 · 자료 오류</b>를 구분했다.</li>
+     <li>합성 테스트에서 <b>입력 변경과 예외 처리</b>가 작동했다.</li>
+     <li>동료가 <b>실행 안내를 보고 다시 사용</b>할 수 있다.</li></ul>
+   <div class="cal dan"><span class="ch">🔒 오늘 하루 지킬 것</span>
+     실제 <b>내부자료 · 고객정보 · 계약정보는 입력하지 않습니다.</b><br>
+     <b>납기 약속 · 재고 배정 · 실제 발주와 고객 연락은 담당자가 결정합니다.</b>
+     오늘 만드는 것은 확인 대상을 찾아주는 도구이지, 약속을 확정하는 도구가 아닙니다.</div>`
+});
+
+/* ===================== 00. 실습 준비 ===================== */
+DECK.push({type:'section',no:'00',h:'실습 준비 — 자료 범위와 공통 판단 기준',
+  sub:'모든 모듈이 <b>같은 기준</b>을 씁니다. 여기서 정한 <b>납기 점검 규칙 v1</b>이 오전 계산·오후 도구·Skill까지 그대로 이어집니다.',
+  tags:['자료는 필요한 순서로','납기 점검 규칙 v1','출력 계약','자료 사전']
+});
+
+DECK.push({k:'00 · 자료 범위', h:'자료는 필요한 순서로 엽니다',
+  c:`<table class="tb"><tr><th style="width:120px">구분</th><th style="width:330px">자료</th><th>사용 목적</th></tr>
+   <tr><td><b>첫 확인</b></td><td><span class="mono">03_영업주문</span> + <span class="mono">04_출고현황</span></td>
+       <td>주문번호로 연결해 <b>기준일 미완료 주문</b>과 납기 확인 대상 추리기</td></tr>
+   <tr><td><b>공통 분석</b></td><td><span class="mono">02_재고현황</span> 추가</td>
+       <td>품목코드로 현재고를 연결하고 미완료 주문량과 비교</td></tr>
+   <tr><td><b>선택 확장</b></td><td><span class="mono">01_수입입고</span></td>
+       <td>미입고 물량과 예정일 확인. <b>현재고에 자동 합산하지 않기</b></td></tr>
+   <tr><td><b>교육 후 선택</b></td><td><span class="mono">05_마케팅캠페인</span></td>
+       <td>별도 마케팅 질문을 다룰 때 활용</td></tr></table>
+   <div class="cal info sm"><span class="ch">파일은 5종을 보관하되 공통 과제는 3종으로</span>
+     파일마다 <b>한 행의 의미 · 단위 · 기간과 기준일</b>을 먼저 확인합니다.
+     기존 워크시트의 ‘KPI 5개·앱 2개’ 요구보다 <b>이번 개정 강의노트의 완료 기준</b>을 따릅니다.</div>`
+});
+
+DECK.push({k:'00 · 실습 전 확인', h:'수업 시작 전에 이것만 확인합니다',
+  c:`<ul class="chk" style="font-size:17px">
+     <li>노트북에서 <b>교육용 파일을 열 수 있는지</b> 확인합니다.</li>
+     <li>수업에서 사용할 <b>AI 환경 하나</b>를 정하고 <b>파일 읽기 · 파일 생성 · Skill 선택</b> 가능 여부를 확인합니다.</li>
+     <li><b>1차 결과물</b>이 있으면 가져옵니다. 없으면 M1-1의 짧은 과제로 시작합니다.</li>
+     <li><b>원본 CSV는 보관</b>하고 시험용 데이터는 복사본을 만듭니다.</li></ul>
+   <div class="cal warn"><span class="ch">기준일을 오늘 날짜로 바꾸지 않습니다</span>
+     교육용 가상 자료의 <b>재고 기준일은 2026-08-31</b>입니다.
+     수업 당일 날짜로 바꾸어 해석하면 오전의 모든 숫자가 어긋납니다.</div>`
+});
+
+DECK.push({k:'00 · 규칙 v1', h:'납기 점검 규칙 v1 — 기준과 연결', sub:'모든 모듈에서 같은 기준을 씁니다 (1/2)',
+  c:`<div class="cal info sm" style="margin-top:0"><span class="ch">기준일과 기간</span>
+     기준일 <b>D = 2026-08-31</b>, 확인 기간은 D부터 <b>D+7일인 2026-09-07</b>까지입니다.</div>
+   <ul class="b">
+     <li><b>연결 확인</b> — 03과 04는 <b>주문번호의 유일성과 1:1 연결</b>을 실제로 확인합니다.
+       중복·불일치는 임의 병합하지 않고 <b>확인 대상으로 분리</b>합니다.</li>
+     <li><b>기준일 출고량</b> — 출고실제일이 <b>D 이하인 완료 건의 출고수량만</b> 반영합니다.
+       미래 출고실적을 소급 반영하지 않습니다. 상태와 날짜가 모순되면 확인 대상으로 분리합니다.</li>
+     <li><b>미완료수량 = 주문수량 − 기준일 출고량.</b> 음수나 수량 누락은 <b>오류이며 0으로 보정하지 않습니다.</b>
+       실제일이 비어 있는 예정·지연 건은 출고 0으로 처리할 수 있으나,
+       <b>완료 상태인데 실제일이 없으면 오류</b>입니다.</li></ul>
+   <div class="cal gray sm"><span class="ch">여기까지가 “무엇을 셀 것인가”</span>
+     다음 장은 “센 것을 어떻게 나눌 것인가”입니다.</div>`
+});
+
+DECK.push({k:'00 · 규칙 v1', h:'납기 점검 규칙 v1 — 구분과 집계', sub:'모든 모듈에서 같은 기준을 씁니다 (2/2)',
+  c:`<table class="tb sm"><tr><th style="width:190px">납기 구간</th><th>조건 (미완료수량이 양수일 때)</th></tr>
+   <tr><td><b>기한 경과</b></td><td>납기요청일 <b>&lt; D</b></td></tr>
+   <tr><td><b>기간 내 확인</b></td><td><b>D 이상 D+7 이하</b></td></tr>
+   <tr><td>기간 밖</td><td>D+7 이후</td></tr></table>
+   <ul class="b">
+     <li><b>집계 순서</b> — 기한 경과와 기간 내 확인 주문의 미완료수량을 <b>품목별로 먼저 합산한 뒤</b> 02의 현재고와 연결합니다.
+       <b>같은 현재고를 주문 행마다 더하지 않습니다.</b></li>
+     <li><b>참고 부족수량 = max(대상 미완료수량 합계 − 현재고수량, 0).</b>
+       단위가 같고 현재고가 유효할 때만 계산합니다. <b>현재고 누락은 계산 불가</b>입니다.</li>
+     <li><b>점검 표지</b> — ‘기한 경과 있음’과 ‘참고 부족수량 양수’는 <b>함께 표시할 수 있는</b> 표지입니다.
+       데이터 오류 목록은 <b>별도로</b> 냅니다.</li></ul>
+   <div class="cal warn sm"><span class="ch">이것은 확인 대상을 찾는 교육용 규칙입니다</span>
+     예약재고·실시간 재고·배정·분할출고 정책이 없으므로
+     <b>출고 가능 여부나 고객 약속을 확정하지 않습니다.</b></div>`
+});
+
+DECK.push({k:'00 · 출력 계약', h:'무엇을 내놓을지 미리 약속합니다',
+  c:`<div class="cal info" style="margin-top:0"><span class="ch">품목별 결과 — 아홉 칸</span>
+     품목코드 / 대상 주문번호 / 기한 경과 미완료수량 / 기간 내 미완료수량 / 현재고수량 /
+     참고 부족수량 / 점검 표지 / 근거 / 확인 질문</div>
+   <div class="cal ok"><span class="ch">요약 — 세 숫자</span>
+     <b>점검 대상 품목 수</b> · <b>기한 경과 주문 수</b> · <b>데이터 오류 행 수</b><br>
+     대상 품목 수는 <b>중복 없는 품목 수</b>이며, 지표의 <b>단위를 함께</b> 적습니다.</div>
+   <div class="g3">
+     <div class="kpi"><div class="n">근거</div><div class="l">모든 행에 <b>원본 주문번호</b>가 붙어 있어야 합니다</div></div>
+     <div class="kpi amber"><div class="n">질문</div><div class="l">자료로 알 수 없는 것은 <b>확인 질문</b>으로 남깁니다</div></div>
+     <div class="kpi red"><div class="n">오류</div><div class="l">정상 행과 <b>섞지 않고</b> 따로 목록을 만듭니다</div></div></div>`
+});
+
+DECK.push({k:'00 · 자료 사전', h:'공통 3파일 — 이 열들을 씁니다',
+  c:`<table class="tb xs"><tr><th style="width:120px">파일</th><th>주요 컬럼</th><th style="width:230px">오늘 쓰는 곳</th></tr>
+   <tr><td><b>03 영업주문</b><br><span class="mono">sales_orders</span></td>
+       <td><b>주문번호</b> · 주문일 · 고객코드 · 고객명 · 고객군 · 채널 · 영업담당 ·
+           <b>품목코드</b> · 품목명 · 품목군 · <b>주문수량</b> · 단가 · 주문금액 · <b>납기요청일</b></td>
+       <td>미완료수량의 분자 · 납기 구간 판정</td></tr>
+   <tr><td><b>04 출고현황</b><br><span class="mono">shipments</span></td>
+       <td>출고번호 · <b>주문번호</b> · 고객코드 · 고객명 · 고객군 · 품목코드 · 품목명 · 품목군 ·
+           <b>출고수량</b> · 출고예정일 · <b>출고실제일</b> · 지연일수 · <b>출고상태</b> · 지연사유</td>
+       <td>기준일 출고량 · 상태/날짜 모순 점검</td></tr>
+   <tr><td><b>02 재고현황</b><br><span class="mono">inventory</span></td>
+       <td>기준일 · <b>품목코드</b> · 품목명 · 품목군 · 창고 · <b>현재고수량</b> · 안전재고수량 ·
+           월평균출고량 · 재고일수 · 재고회전율 · 단가 · 재고금액 · 입고예정수량 · 표준리드타임</td>
+       <td>참고 부족수량 계산 (기준일 <b>2026-08-31 스냅샷</b>)</td></tr></table>
+   <div class="cal gray sm"><span class="ch">연결 키</span>
+     03 ↔ 04 는 <b>주문번호</b>, 그 결과 ↔ 02 는 <b>품목코드</b>.
+     주문 1건 = 출고 1건으로 단순화되어 있으므로 <b>1:1 연결이 실제로 성립하는지</b>를 반드시 세어서 확인합니다.</div>`
+});
+
+DECK.push({k:'00 · 자료 사전', h:'선택 자료 두 개 — 쓰는 법과 함정',
+  c:`<div class="g2">
+     <div class="card"><h4>01 수입·입고 <span class="small">(선택 확장)</span></h4>
+       <p class="small" style="margin:0 0 7px">발주번호 · 품목코드 · 공급사 · 원산지 · 발주수량 · 선적일 ·
+         입항예정/실제일 · 통관완료일 · 입고예정/실제일 · 지연일수 · 지연사유 · <b>진행상태</b></p>
+       <div class="cal warn sm" style="margin:0"><span class="ch">⚠ 두 가지 함정</span>
+         ① <b>진행상태</b>가 입고완료가 아닌 건은 실제일·지연일수가 <b>비어 있습니다.</b><br>
+         ② <b>입고예정수량을 현재고에 합산해 ‘납기 가능’으로 바꾸지 않습니다.</b>
+         대상 주문에 배정되는지 알 수 없습니다.</div></div>
+     <div class="card"><h4>05 마케팅 캠페인 <span class="small">(교육 후 선택)</span></h4>
+       <p class="small" style="margin:0 0 7px">캠페인코드 · 캠페인명 · 대상품목군 · 대상고객군 · 시작일 · 종료일 ·
+         혜택 · 캠페인비용 · 기간내주문건수 · 기간내주문금액 · 문의건수 · 상태</p>
+       <div class="cal gray sm" style="margin:0"><span class="ch">🧠 가설을 구분하는 훈련용</span>
+         기간 내 주문금액이 높다고 해서 <b>캠페인이 원인이라는 보장은 없습니다.</b>
+         계절성일 수도 있습니다.</div></div></div>
+   <div class="cal info sm"><span class="ch">분류 값 참고</span>
+     품목군 5종(인쇄용지·팬시지·특수지·판지·라벨지) · 고객군 6종(대형/중소인쇄소·패키지제조·디자인문구·라벨가공·출판총판) ·
+     채널 3종(직거래·대리점·온라인) · 영업담당 5명 · 공급사 7개사</div>`
+});
+
+/* ===================== M1-1 ===================== */
+DECK.push({type:'section',no:'M1-1',h:'1차 연결 — 업무 질문과 완료 기준',
+  sub:'1차에서 만든 것에서 출발해, <b>오늘 답할 질문 하나</b>와 <b>끝났다고 말할 수 있는 기준</b>을 정합니다.',
+  tags:['08:30–09:20','결과물 — 핵심 질문 1개','판단 기준 초안','개인 숙련도 점검']
+});
+
+DECK.push({k:'M1-1 · 강의', tm:'08:30–09:20', h:'1차에서 만든 것에서 출발합니다',
+  c:`<p class="lead">1차에서는 납기 이슈 <b>보고서 · 고객 이메일 · 실행계획</b>을 작성하고,
+     문제정의와 검토 기준을 바탕으로 <b>HTML 문서 생성기</b>를 만들었습니다.</p>
+   <div class="q sm">오늘은 <b>자료에서 이슈를 발견하고,<br>새 자료에서도 다시 작동하는 도구</b>로 발전시킵니다.</div>
+   <div class="cal gray"><span class="ch">새 프롬프트 공식을 외우지 않습니다</span>
+     1차에서 쓴 <b>역할 · 상황 · 목표 · 조건 · 출력 형식</b>을 그대로 씁니다.
+     오늘 달라지는 것은 <b>조건에 자료 범위·기준일·계산식·예외 처리를 더 구체적으로 적는 것</b>뿐입니다.</div>`
+});
+
+DECK.push({k:'M1-1 · 활동', tm:'15분', h:'먼저 해보기 — 지금 숙련도를 확인합니다',
+  c:`<div class="chips"><span class="chip">개인</span><span class="chip ai">AI</span></div>
+   <p>1차 결과물이 <b>있으면</b> 열어 <b>한 가지 조건을 수정</b>합니다.
+      <b>없으면</b> 아래 가상 상황을 1차의 역할·상황·목표·조건·출력 형식으로 정리합니다.</p>`
+   + promptHTML(`가상 상황: 고객 A의 요청 납기가 내일입니다. 출고 수량과 입고 일정은 아직 확인되지 않았습니다.
+부서장 보고용 5줄 요약과 확인 질문 3개를 만드세요.
+확정된 사실과 확인이 필요한 사항을 나누고, 납기 가능 여부를 단정하지 마세요.`)
+   + `<div class="cal ok sm"><span class="ch">여기서 갈립니다</span>
+     스스로 <b>요청 · 수정 · 검토</b>가 되면 공통 실습으로 이동합니다.
+     어려운 팀은 강사와 <b>기본 틀을 5분</b> 복습합니다.</div>`,
+  done:'혼자서 요청하고, 결과를 고치고, 단정 표현을 잡아낼 수 있다.'
+});
+
+DECK.push({k:'M1-1 · 활동', h:'하나의 업무 질문을 정합니다',
+  c:`<div class="cal info" style="margin-top:0"><span class="ch">공통 질문</span>
+     “2026-08-31 기준, 기한 경과 또는 향후 7일 이내 납기 주문 중 <b>어떤 품목을 먼저 확인할까?</b>”</div>
+   <p class="lead">팀별로 아래 네 문장을 채웁니다.</p>
+   <table class="tb"><tr><th style="width:170px">칸</th><th>채울 내용</th></tr>
+   <tr><td><b>보는 사람</b></td><td>_______ 담당자</td></tr>
+   <tr><td><b>확인할 자료</b></td><td>주문 · 출고 · 재고</td></tr>
+   <tr><td><b>판단할 항목</b></td><td>기한 경과 · 참고 부족수량 · 자료 오류</td></tr>
+   <tr class="hl"><td><b>완료 기준</b></td><td>결과에서 <b>원본 주문번호와 계산 근거를 찾을 수 있다</b></td></tr></table>`,
+  done:'네 칸이 채워졌고, <b>팀원이 질문과 완료 기준을 말로 설명</b>할 수 있다.'
+});
+
+DECK.push({k:'M1-1 · 활동', h:'AI에 맡기기 — 파일부터 확인시킵니다',
+  c:promptHTML(`역할: 납기 점검을 돕는 분석 담당자.
+상황: 교육용 주문·출고 자료로 확인 대상을 찾고 이후 재고를 연결하려 합니다.
+목표: 분석 질문 1개와 필요한 열, 확인 순서를 정리하세요.
+조건: 기준일 2026-08-31. 00 페이지의 납기 점검 규칙 v1을 적용합니다.
+먼저 03·04 파일을 읽어 행 수, 주문번호 중복, 연결 실패를 확인하세요.
+자료에서 알 수 없는 것은 질문으로 남기세요.
+출력: 파일 확인표와 판단 기준 초안.`)
+   + `<div class="cal warn sm"><span class="ch">첫 요청은 분석이 아니라 점검입니다</span>
+     행 수 · 중복 · 연결 실패를 먼저 세게 하는 이유는, 여기서 어긋나면 <b>뒤의 모든 숫자가 틀리기</b> 때문입니다.</div>`,
+  done:'파일 확인표와 판단 기준 초안이 나왔고, <b>연결 실패 건수가 숫자로</b> 적혀 있다.'
+});
+
+DECK.push({k:'M1-1 · 마무리', h:'M1-1 완료 기준',
+  c:`<ul class="chk" style="font-size:17px">
+     <li>1차에서 배운 <b>업무 지시와 검토</b>를 직접 수행했다.</li>
+     <li><b>질문 1개와 완료 기준</b>을 팀원이 설명할 수 있다.</li>
+     <li><b>자료 기준일(2026-08-31)과 오늘 날짜</b>를 구분했다.</li></ul>
+   <div class="cal ok"><span class="ch">강의포인트</span>
+     <b>“무엇을 계산할까?”보다 “누가 무엇을 확인해야 할까?”가 먼저입니다.</b></div>`
+});
+
+/* ===================== M1-2 ===================== */
+DECK.push({type:'section',no:'M1-2',h:'자료 연결 — 미완료 주문과 재고 점검',
+  sub:'주문·출고를 연결해 <b>기준일 미완료수량</b>을 계산하고, 품목별로 집계한 뒤 재고를 붙입니다. 오늘 숫자가 처음 나오는 시간입니다.',
+  tags:['09:20–10:20','입력 — 03·04, 이후 02','결과물 — 품질 점검표','품목별 납기 확인표']
+});
+
+DECK.push({k:'M1-2 · 강의', tm:'09:20–10:20', h:'연결 전에 한 행의 의미를 확인합니다',
+  c:`<p class="lead">주문은 <b>주문번호 기준</b>, 재고는 <b>품목별 스냅샷</b>입니다.
+     단위가 다른 두 자료를 그냥 붙이면 숫자가 부풀려집니다.</p>
+   <div class="g2">
+     <div class="card no"><h4>❌ 이렇게 하면 재고가 부풀려집니다</h4>
+       <pre class="dia" style="margin:0;background:#fff;border-color:#e8c4bf">주문행 1 · P-A · 미완료 100 · 현재고 120
+주문행 2 · P-A · 미완료  50 · 현재고 120
+─────────────────────────────
+현재고 합계 = 240  ← 같은 재고를 두 번 셈</pre></div>
+     <div class="card yes"><h4>✅ 품목별로 먼저 집계한 뒤 연결</h4>
+       <pre class="dia" style="margin:0;background:#fff;border-color:#bcdcc7">P-A 대상 미완료 합계 = 150
+P-A 현재고           = 120   ← 한 번만
+─────────────────────────────
+참고 부족수량 = 150 − 120 = 30</pre></div></div>
+   <div class="cal warn sm"><span class="ch">빈칸도 두 종류입니다</span>
+     <b>출고예정 건의 실제일 빈칸</b>과 <b>완료 건의 실제일 빈칸</b>은 다르게 처리합니다.
+     앞은 정상(출고 0), 뒤는 <b>오류</b>입니다.</div>`
+});
+
+DECK.push({k:'M1-2 · 활동', h:'자료 품질을 먼저 점검합니다',
+  c:`<p class="small" style="margin:0 0 7px">빈칸 · 중복 · 날짜 오류 · 음수 · 연결 실패 · 단위를 확인합니다.</p>`
+   + promptHTML(`03·04의 주문번호와 02의 품목코드가 각각 유일한지 확인하세요.
+각 파일의 행 수, 중복 키, 누락, 음수, 날짜·상태 모순, 연결 실패를 표로 내세요.
+원본은 바꾸지 마세요. 오류 행과 정상 행을 분리하고 제외 이유와 건수를 기록하세요.
+교육용 자료의 수량 단위를 확인한 뒤에만 서로 비교하세요.`)
+   + `<div class="cal dan sm"><span class="ch">원본은 바꾸지 않습니다</span>
+     오류 행을 <b>조용히 삭제하거나 0으로 바꾸는 것</b>이 오늘 가장 조심할 실수입니다.
+     제외했다면 <b>이유와 건수</b>를 남깁니다.</div>`,
+  done:'정상 행과 오류 행이 <b>분리</b>되었고, 제외 이유와 건수가 적혀 있다.'
+});
+
+DECK.push({k:'M1-2 · 활동', h:'계산하고 근거를 남깁니다',
+  sub:'00 페이지의 규칙 v1을 붙여넣고 아래를 요청합니다',
+  c:promptHTML(`기준일 D=2026-08-31, 기간 끝=2026-09-07입니다.
+규칙 v1대로 기준일 미완료수량과 납기 구간을 계산하세요.
+기한 경과·기간 내 확인 주문을 품목별 집계한 뒤 재고와 연결하세요.
+품목별 확인표와 오류 목록을 별도로 제공하세요.
+각 결과에 원본 주문번호, 사용한 수량, 계산식을 남기세요.
+행 수와 수량이 연결 전후 어떻게 달라졌는지 대조하세요.
+결과를 품목별_납기확인.csv와 데이터_품질점검.md로 저장하세요.`,'sm'),
+  done:'<span class="mono">품목별_납기확인.csv</span>와 <span class="mono">데이터_품질점검.md</span>가 만들어졌고, 각 행에 <b>원본 주문번호와 계산식</b>이 붙어 있다.'
+});
+
+DECK.push({k:'M1-2 · 활동', h:'사람이 직접 검산합니다',
+  c:`<div class="chips"><span class="chip hand">✋ AI 끄기</span><span class="chip team">팀</span></div>
+   <div class="cal hand"><span class="ch">AI가 낸 숫자를 손으로 확인하는 시간입니다</span>
+     팀원이 서로 <b>다른 주문 2건</b>을 골라 <b>주문수량 − 기준일 출고수량</b>을 직접 계산합니다.</div>
+   <ul class="b" style="font-size:17px">
+     <li>같은 품목의 주문이 여러 개 있으면 <b>합산이 맞는지</b> 확인합니다.</li>
+     <li><b>현재고가 한 번만</b> 반영되었는지 확인합니다.</li></ul>
+   <div class="cal gray sm"><span class="ch">이 두 건이 오후의 정답지가 됩니다</span>
+     오후에 만든 도구가 <b>이 숫자와 같은 값</b>을 내는지로 “작동한다”를 판정합니다. 지금 적어 두세요.</div>`,
+  done:'주문 <b>2건</b>과 품목 집계 <b>1건</b>을 손으로 계산해 AI 결과와 대조했다.'
+});
+
+DECK.push({k:'M1-2 · 마무리', h:'M1-2 완료 기준',
+  c:`<ul class="chk" style="font-size:17px">
+     <li>오류 행을 <b>조용히 삭제하거나 0으로 바꾸지 않았다.</b></li>
+     <li><b>주문별 계산</b>과 <b>품목별 집계</b> 단위를 구분했다.</li>
+     <li>원본 2건을 검산하고 AI 결과와 대조했다.</li>
+     <li>납기 확정 대신 <b>확인 대상과 질문</b>을 제시했다.</li></ul>
+   <div class="cal ok"><span class="ch">강의포인트</span>
+     <b>결과 숫자보다 먼저 연결 기준과 제외 대상을 확인합니다.</b></div>`
+});
+
+/* ===================== M1-3 ===================== */
+DECK.push({type:'section',no:'M1-3',h:'근거로 판단 — 우선 확인과 원인 가설',
+  sub:'점검 표지는 <b>확인할 근거</b>이지 결론이 아닙니다. 무엇을 먼저 볼지 정하고, 사실과 가설을 갈라 놓습니다.',
+  tags:['10:30–11:20','결과물 — 우선 확인 품목 3개','사실·가설·추가 확인 표','선택 확장 — 01 입고']
+});
+
+DECK.push({k:'M1-3 · 강의', tm:'10:30–11:20', h:'점검 표지와 의사결정을 구분합니다',
+  c:`<div class="g2">
+     <div class="card yes"><h4>자료가 말해주는 것 — 확인할 근거</h4>
+       <ul class="b"><li>기한이 지났다</li><li>참고 부족수량이 양수다</li><li>관련 주문 수가 많다</li><li>정보가 누락되어 있다</li></ul></div>
+     <div class="card no"><h4>자료가 말해주지 않는 것 — 담당자 판단</h4>
+       <ul class="b"><li>지연 <b>원인</b></li><li>실제 <b>출고 가능 여부</b></li><li>재고 <b>배정</b></li><li>고객에게 할 <b>약속</b></li></ul></div></div>
+   <div class="cal info"><span class="ch">우선 확인 순서를 정하는 법</span>
+     먼저 <b>기한 경과 주문이 있는 품목</b>을 봅니다. 그 안에서 <b>참고 부족수량 · 관련 주문 수 · 누락 정보</b>를
+     함께 비교해 순서를 정합니다.</div>
+   <div class="cal dan sm"><span class="ch">임의 점수로 합치지 않습니다</span>
+     단위가 다른 수량이나 확인되지 않은 매출을 <b>하나의 점수로 더하지 마세요.</b>
+     각각을 그대로 보여주고, 순서는 사람이 정합니다.</div>`
+});
+
+DECK.push({k:'M1-3 · 활동', h:'우선 확인 품목 3개를 뽑습니다',
+  c:promptHTML(`품목별_납기확인.csv와 데이터 품질 점검 결과를 바탕으로
+우선 확인 품목 3개를 제안하세요.
+기한 경과 여부와 참고 부족수량을 각각 보여주고,
+선정 근거, 필요한 추가 정보, 담당 부서 질문을 적으세요.
+순위가 달라질 수 있는 조건도 한 가지씩 표시하세요.
+관측된 동시 발생만으로 원인과 결과를 단정하지 마세요.`),
+  done:'품목 3개에 각각 <b>근거 주문번호 · 추가 정보 · 담당 부서 질문</b>이 붙어 있고, 순위가 바뀔 조건이 표시되어 있다.'
+});
+
+DECK.push({k:'M1-3 · 선택 확장', h:'여유가 있는 팀만 입고 자료를 추가합니다',
+  c:`<div class="chips"><span class="chip out">선택 확장</span><span class="chip">01 수입입고</span></div>
+   <p><b>공통 분석을 마친 팀만</b> 01 파일을 엽니다. 선택한 품목의 <b>기준일 미입고 발주와 예정일</b>을 확인합니다.
+      실제 입고가 D 이후이면 <b>기준일에는 입고 전</b>입니다.</p>`
+   + promptHTML(`선정한 품목에 한해 01 입고 자료를 확인하세요.
+발주번호, 예정일, 실제일, 기준일 미입고 여부를 제시하고
+자료로 확인된 사실 / 가능한 원인 / 담당자 확인 질문으로 나누세요.
+입고 지연과 출고 지연의 동시 발생을 인과관계로 확정하지 마세요.`)
+   + `<div class="cal dan sm"><span class="ch">입고예정수량을 현재고에 더하지 않습니다</span>
+     예정 물량이 <b>대상 주문에 배정되는지 알 수 없으므로</b>, 합산해서 ‘납기 가능’으로 바꾸지 않습니다.</div>`,
+  done:'입고 확인 결과가 <b>사실 / 가능한 원인 / 확인 질문</b> 세 칸으로 나뉘어 있다.'
+});
+
+DECK.push({k:'M1-3 · 활동', h:'결론의 강도를 점검합니다',
+  c:`<div class="cal dan"><span class="ch">❌ 잘못된 표현</span>
+     “<b>입고 지연 때문에</b> 고객 납기가 늦어졌다.”</div>
+   <div class="cal ok"><span class="ch">✅ 개선 표현</span>
+     “해당 품목에 <b>미입고 건과 미완료 주문이 함께 확인된다.</b>
+      주문별 배정과 실제 가용재고 <b>확인이 필요하다.</b>”</div>
+   <ul class="chk" style="font-size:16.5px;margin-top:14px">
+     <li>품목 3개에 각각 <b>근거 주문번호</b>가 있다.</li>
+     <li><b>사실과 가설</b>이 분리되어 있다.</li>
+     <li>담당자가 <b>답할 수 있는</b> 확인 질문이 있다.</li></ul>
+   <div class="cal gray sm"><span class="ch">강의포인트</span>
+     <b>더 많은 차트보다 더 정확한 확인 질문이 판단에 도움이 됩니다.</b></div>`
+});
+
+/* ===================== M1-4 ===================== */
+DECK.push({type:'section',no:'M1-4',h:'판단 전달 — 보고서와 대응 흐름',
+  sub:'오전에 만든 근거를 <b>보고서 1장</b>으로 접고, 오후 도구가 쓸 <b>판단 기준</b>을 넘깁니다.',
+  tags:['11:20–12:00','결과물 — 납기 점검 보고서 1장','오후에 넘길 세 가지']
+});
+
+DECK.push({k:'M1-4 · 강의', tm:'11:20–12:00', h:'1차의 문서 작성 능력을 다시 씁니다',
+  c:`<p class="lead">1차는 <b>주어진</b> 납기 이슈를 문서로 바꾸었습니다.
+     오늘은 <b>원본 자료와 검산을 거친 결과</b>를 근거로 보고서를 작성합니다.</p>
+   <div class="q sm">문장 다듬기보다 <b>근거 · 확인 사항 · 다음 행동</b>의 연결을 봅니다.</div>
+   <div class="cal gray"><span class="ch">보고서에 새 사실을 넣지 않습니다</span>
+     오전에 계산한 것 외에 <b>새로운 사실이나 임의의 납기 약속을 추가하지 않습니다.</b>
+     빠진 것은 ‘확인 필요’로 남깁니다.</div>`
+});
+
+DECK.push({k:'M1-4 · 활동', h:'납기 점검 보고서를 작성합니다',
+  c:promptHTML(`오전의 품목별 확인표, 품질 점검표, 우선 확인 품목을 사용하세요.
+새로운 사실이나 임의의 납기 약속을 추가하지 마세요.
+납기점검_보고서.md를 1장 분량으로 작성하세요.
+포함: 기준일·대상 범위, 핵심 요약 3줄, 우선 확인 품목 3개,
+품목별 근거와 담당 부서 질문, 데이터 한계, 다음 조치.
+확정 사실과 가설을 구분하고 각 판단에 주문번호를 연결하세요.`)
+   + `<div class="cal info sm"><span class="ch">선택 활동</span>
+     1개 품목에 대해 <b>고객 안내 초안</b>을 작성하되, 확인 중인 정보와 확정 정보를 구분합니다.
+     <b>이메일은 발송하지 않습니다.</b></div>`,
+  done:'<span class="mono">납기점검_보고서.md</span> 1장이 나왔고, <b>모든 판단에 주문번호</b>가 연결되어 있다.'
+});
+
+DECK.push({k:'M1-4 · 활동', h:'반복할 흐름을 정리하고 오후로 넘깁니다',
+  c:`<div class="flow">
+     <div class="fs"><div class="t1">입력</div><div class="t2">CSV · 기준일 · 기간</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">자료 점검</div><div class="t2">중복 · 누락 · 모순</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">계산 · 집계</div><div class="t2">미완료 → 품목별 → 재고</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">담당자 확인</div><div class="t2">질문과 판단</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">보고서 활용</div><div class="t2">다음 조치</div></div></div>
+   <p class="small">각 단계에 <b>입력 · 출력 · 사람이 확인할 항목</b>을 한 문장씩 적습니다.
+     별도의 거대한 업무 재설계 문서를 만들 필요는 없습니다.</p>
+   <table class="tb"><tr><th style="width:150px">오후에 넘길 것</th><th>내용</th></tr>
+   <tr><td><b>규칙 v1</b></td><td>기준일 · 기간 · 미완료수량 · 재고 연결 · 오류 처리</td></tr>
+   <tr class="hl"><td><b>검산 사례</b></td><td>주문 2건과 품목 집계 1건 — <b>오후 도구의 정답지</b></td></tr>
+   <tr><td><b>화면 요구</b></td><td>확인 대상 목록에서 <b>근거와 질문</b>을 볼 수 있어야 함</td></tr></table>`
+});
+
+DECK.push({k:'M1-4 · 마무리', h:'동료 검토 후 오전을 마칩니다',
+  c:`<div class="chips"><span class="chip team">옆 팀과 교환</span></div>
+   <p class="lead">옆 팀은 보고서의 <b>품목 하나</b>를 골라 <b>원본까지 따라갑니다.</b>
+     근거를 찾을 수 없으면 문장보다 <b>연결 정보를 먼저</b> 수정합니다.</p>
+   <div class="cal ok"><span class="ch">완료 신호</span>
+     <b>“이 품목을 확인해야 하는 이유”를 숫자와 주문번호로 설명할 수 있습니다.</b></div>
+   <div class="cal gray sm"><span class="ch">강의포인트</span>
+     <b>보고서와 오후 도구는 같은 판단 기준을 사용해야 합니다.</b>
+     오후에 숫자가 달라지면 둘 중 하나가 규칙을 어긴 것입니다.</div>`
+});
+
+/* ===================== M2-1 ===================== */
+DECK.push({type:'section',no:'M2-1',h:'업무도구 설계 — 판단 기준을 화면으로',
+  sub:'오전의 계산을 <b>그대로 화면에서 확인</b>하게 만듭니다. 디자인이 아니라 <b>입력·계산·출력의 약속</b>을 정하는 시간입니다.',
+  tags:['13:00–13:50','결과물 — 요구사항과 손그림','1차 요구사항 작성 틀 재사용']
+});
+
+DECK.push({k:'M2-1 · 강의', tm:'13:00–13:50', h:'핵심 기능은 세 가지뿐입니다',
+  c:`<div class="g3">
+     <div class="card"><h4>① 읽기</h4><p class="small" style="margin:0">03 · 04 · 02 자료를 읽고
+       <b>기준일과 조회 종료일</b>을 화면에 표시한다.</p></div>
+     <div class="card"><h4>② 나누기</h4><p class="small" style="margin:0">품목별 <b>납기 확인 목록</b>과
+       <b>오류 목록</b>을 분리한다.</p></div>
+     <div class="card"><h4>③ 따라가기</h4><p class="small" style="margin:0">품목을 선택하면
+       <b>원본 주문과 계산 근거, 담당자 질문</b>이 보인다.</p></div></div>
+   <div class="cal info"><span class="ch">화면에 항상 보일 세 숫자</span>
+     <b>점검 대상 품목 수</b> · <b>기한 경과 주문 수</b> · <b>오류 행 수</b><br>
+     필터가 이 숫자에 영향을 주는지 <b>정하고 레이블로 알려줍니다.</b>
+     (“필터 적용 기준” 인지 “전체 기준” 인지)</div>
+   <div class="cal gray sm"><span class="ch">1차의 틀을 그대로</span>
+     1차에서 배운 <b>문제정의 · 요구사항 작성 틀</b>을 사용합니다. 새 양식을 만들지 않습니다.</div>`
+});
+
+DECK.push({k:'M2-1 · 활동', h:'요구사항을 구체화합니다',
+  c:promptHTML(`오전 보고서, 규칙 v1, 품목별 확인표를 바탕으로
+교육용 납기 확인 도구의 요구사항을 작성하세요.
+1차에서 만든 HTML 문서 생성기를 참고하되,
+오늘의 핵심은 자료 입력과 계산 근거 확인입니다.
+입력 CSV 3개, 날짜 조건, 필수 열, 계산식, 오류 처리,
+화면 영역, 복사할 요약, 통과 기준을 적으세요.
+한 HTML 파일로 구현하고 외부 API·로그인·DB는 사용하지 않습니다.
+고객에게 납기를 확정하거나 재고를 배정하는 기능은 제외합니다.
+규칙 v1의 내용을 생략 없이 요구사항에 포함하세요.`,'sm'),
+  done:'요구사항에 <b>규칙 v1이 생략 없이</b> 들어 있고, 통과 기준이 <b>오전 검산값</b>으로 적혀 있다.'
+});
+
+DECK.push({k:'M2-1 · 활동', h:'동료에게 손그림으로 설명합니다',
+  c:`<div class="chips"><span class="chip hand">✋ AI 끄기</span><span class="chip team">팀</span><span class="chip out">손그림</span></div>
+   <p class="lead">한 팀원은 <b>사용자 역할</b>이 되어 두 가지만 묻습니다.</p>
+   <div class="q sm">“기한이 지난 주문을 어떻게 찾나요?”</div>
+   <div class="q sm">“재고 숫자는 어디서 왔나요?”</div>
+   <div class="cal warn"><span class="ch">설명이 길어지면 화면을 단순화합니다</span>
+     말로 오래 설명해야 하는 화면은 <b>실제로도 안 쓰입니다.</b>
+     손그림 단계에서 줄이는 것이 코드로 고치는 것보다 훨씬 쌉니다.</div>`,
+  done:'두 질문에 <b>화면을 가리키며</b> 답할 수 있다.'
+});
+
+DECK.push({k:'M2-1 · 마무리', h:'구현 전에 합의할 것',
+  c:`<ul class="chk" style="font-size:17px">
+     <li><b>오전 검산 결과가 화면의 기준값</b>이다.</li>
+     <li>오류 데이터가 <b>정상처럼 표시되지 않는다.</b></li>
+     <li>요약 수치의 <b>단위와 필터 범위</b>를 정했다.</li>
+     <li>팀별 개선 기능은 <b>하나만</b> 남겨두었다.</li></ul>
+   <div class="cal ok"><span class="ch">강의포인트</span>
+     <b>디자인보다 입력 · 계산 · 출력의 약속이 먼저입니다.</b></div>`
+});
+
+/* ===================== M2-2 ===================== */
+DECK.push({type:'section',no:'M2-2',h:'업무도구 구현 — 납기 확인 도구 v1',
+  sub:'요구사항으로 <span class="mono">index_v1.html</span>을 만들고, <b>오전과 같은 숫자가 나오는지</b>로 완료를 판정합니다.',
+  tags:['14:00–14:50','결과물 — index_v1.html','파일이 열리는 것만으로 완료 아님']
+});
+
+DECK.push({k:'M2-2 · 활동', tm:'14:00–14:50', h:'요구사항으로 구현합니다',
+  sub:'새 작업을 쓴다면 오전 대화 내용을 안다고 가정하지 말고 규칙 v1·요구사항·검산 사례를 함께 제공합니다',
+  c:promptHTML(`확정한 요구사항으로 index_v1.html을 만들어주세요.
+HTML/CSS/JavaScript를 한 파일에 포함하세요.
+외부 라이브러리·API·서버·로그인 없이 브라우저에서 실행합니다.
+03·04·02 CSV를 각각 입력하고 기준일과 기간 끝을 확인하게 하세요.
+CSV의 UTF-8 BOM, 따옴표 안 쉼표, 빈 셀을 처리하세요.
+필수 열 누락, 중복 키, 숫자·날짜 오류를 표시하고 임의 보정하지 마세요.
+오전의 규칙 v1을 그대로 적용하고, 근거 주문번호와 계산식을 보여주세요.
+요약은 검증된 계산 결과를 바탕으로 템플릿 방식으로 만드세요.
+품목 필터, 근거 상세 보기, 요약 복사, 초기화 기능을 넣으세요.
+파일을 바꾸면 예전 결과가 남지 않게 하세요.
+파일 완성 후 실행 방법과 아직 검증하지 않은 항목을 알려주세요.`,'sm')
+});
+
+DECK.push({k:'M2-2 · 강의', h:'이 도구가 하는 일과 하지 않는 일',
+  c:`<div class="g2">
+     <div class="card yes"><h4>하는 일</h4>
+       <ul class="b"><li>규칙 v1에 따른 <b>계산</b></li><li>목록과 오류의 <b>표시</b></li>
+       <li>검증된 결과로 <b>문구 조합</b>(템플릿 요약)</li></ul></div>
+     <div class="card no"><h4>하지 않는 일</h4>
+       <ul class="b"><li>브라우저에서 <b>AI가 새로 판단</b>하는 기능</li>
+       <li>고객에게 <b>납기 확정</b></li><li><b>재고 배정</b></li></ul></div></div>
+   <div class="cal info"><span class="ch">교육용 웹앱의 성격</span>
+     이 도구는 <b>계산 · 표시 · 문구 조합</b>을 수행합니다.
+     “AI가 들어 있는 화면”이 아니라 <b>오전에 사람이 정한 규칙이 들어 있는 화면</b>입니다.</div>`
+});
+
+DECK.push({k:'M2-2 · 활동', h:'열고 계산을 대조합니다',
+  c:`<ol class="b" style="font-size:16.5px">
+     <li>파일을 내려받아 브라우저에서 엽니다. 코드로 받았다면 <b>UTF-8</b>로 <span class="mono">index_v1.html</span>에 저장하고
+       <b>확장자를 확인</b>합니다.</li>
+     <li><b>03 · 04 · 02 파일과 날짜</b>를 입력합니다.</li>
+     <li>오전에 검산한 <b>주문 2건 · 품목 1건</b>의 결과를 비교합니다.</li>
+     <li><b>목록 · 근거 보기 · 요약 복사 · 초기화</b>를 실행합니다.</li></ol>
+   <div class="cal warn sm"><span class="ch">HTML이 글자로 열리면</span>
+     확장자가 <span class="mono">.html.txt</span>로 저장된 경우입니다.
+     저장 형식을 <b>모든 파일</b>, 인코딩을 <b>UTF-8</b>로 다시 저장합니다.</div>`,
+  done:'오전 검산값 <b>3개가 화면 값과 일치</b>하고, 네 기능이 모두 동작한다.'
+});
+
+DECK.push({k:'M2-2 · 활동', h:'값이 다르면 이렇게 요청합니다',
+  c:promptHTML(`기대 결과: [오전 검산값]
+현재 결과: [화면 값]
+재현 순서: [파일·날짜·품목·버튼 순서]
+이 차이의 원인을 찾아 수정하세요.
+규칙 v1과 정상 동작은 유지하고 수정된 전체 파일을 제공하세요.`)
+   + `<div class="cal ok"><span class="ch">완료 기준 — 파일이 열리는 것만으로 완료하지 않습니다</span>
+     <b>오전과 동일한 입력에서 동일한 수치</b>가 나오고,
+     <b>오류 목록과 근거</b>를 볼 수 있어야 합니다.</div>
+   <div class="cal gray sm"><span class="ch">강의포인트</span>
+     <b>“작동합니다”를 실제 데이터와 기대값으로 확인합니다.</b></div>`
+});
+
+/* ===================== M3 ===================== */
+DECK.push({type:'section',no:'M3',h:'재실행 검증 — 새 데이터와 예외 처리',
+  sub:'원본과 무관한 <b>합성 테스트 자료</b>를 만들어, 데이터가 바뀌어도 <b>같은 규칙이 유지되는지</b> 확인합니다.',
+  tags:['15:00–15:50','결과물 — index_v2.html','검증 기록','여기가 심화의 핵심']
+});
+
+DECK.push({k:'M3 · 활동', tm:'15:00–15:50', h:'시험용 자료를 별도로 만듭니다',
+  sub:'원본 자료와 무관한 합성 테스트 — D=2026-08-31, 종료=2026-09-07, 수량 단위 연',
+  c:`<table class="tb sm"><tr><th>주문</th><th>품목</th><th class="c">주문량</th><th class="c">기준일 출고량</th><th>납기요청일</th><th>출고 상태</th></tr>
+   <tr><td>T01</td><td><b>P-A</b></td><td class="c">100</td><td class="c">0</td><td>2026-08-30</td><td>예정 · 실제일 빈칸</td></tr>
+   <tr><td>T02</td><td><b>P-A</b></td><td class="c">50</td><td class="c">0</td><td>2026-09-07</td><td>예정 · 실제일 빈칸</td></tr>
+   <tr><td>T03</td><td>P-B</td><td class="c">80</td><td class="c">80</td><td>2026-08-31</td><td>완료 · 실제일 2026-08-31</td></tr>
+   <tr><td>T04</td><td>P-C</td><td class="c">30</td><td class="c">0</td><td>2026-09-08</td><td>예정 · 실제일 빈칸</td></tr>
+   <tr><td>T05</td><td>P-D</td><td class="c">20</td><td class="c">0</td><td>2026-09-01</td><td>예정 · 실제일 빈칸</td></tr></table>
+   <div class="cal info sm" style="margin-top:6px"><span class="ch">02의 현재고</span>
+     P-A = <b>120</b> · P-B = 100 · P-C = 100 · P-D = <b>빈 셀</b>(실제 CSV에 빈칸으로)<br>
+     출고예정 행의 출고수량 열을 채워야 한다면 예정 수량을 넣되,
+     <b>실제일이 없으므로 출고 완료량에는 반영하지 않습니다.</b></div>
+   <p class="small">구현한 CSV 필수 열에 맞춰 시험용 03·04·02 파일을 만듭니다.
+     나머지 필수 열에는 가상 값을 넣되 <b>주문번호와 품목코드는 유지</b>합니다.</p>`
+});
+
+DECK.push({k:'M3 · 활동', h:'예상 결과를 먼저 적고 돌립니다',
+  c:`<table class="tb"><tr><th style="width:110px">대상</th><th>기대 결과</th></tr>
+   <tr class="hl"><td><b>P-A</b></td><td>기한 경과 <b>100</b>, 기간 내 <b>50</b>, 대상 합계 <b>150</b>,
+       현재고 <b>120</b>, 참고 부족수량 <b>30</b></td></tr>
+   <tr><td>T03</td><td><b>완료되어 대상에서 제외</b></td></tr>
+   <tr><td>T04</td><td>종료일 다음 날이므로 <b>기간 밖</b></td></tr>
+   <tr><td><b>P-D</b></td><td>대상 수량 20이지만 <b>현재고 누락으로 부족수량 계산 불가 · 확인 필요</b></td></tr></table>
+   <div class="g3">
+     <div class="kpi"><div class="n">2<em>개</em></div><div class="l">점검 대상 품목 수<br><span class="small">P-A · P-D</span></div></div>
+     <div class="kpi red"><div class="n">1<em>건</em></div><div class="l">기한 경과 주문 수</div></div>
+     <div class="kpi amber"><div class="n">?</div><div class="l">오류 행 수 — 입력 점검 단계에서 <b>정의한 오류 행 단위</b>로 계산하고 이유를 표시</div></div></div>`,
+  done:'화면 값이 <b>기대 결과와 한 줄씩 일치</b>한다. 다르면 먼저 어느 규칙이 어긋났는지 찾습니다.'
+});
+
+DECK.push({k:'M3 · 활동', h:'한 조건씩 바꾸어 봅니다',
+  c:`<table class="tb sm"><tr><th style="width:290px">바꾸는 입력</th><th>기대 결과</th></tr>
+   <tr><td>P-A 현재고를 <b>200</b>으로</td><td>부족수량 <b>0</b>, <b>기한 경과 표지는 유지</b></td></tr>
+   <tr><td>T04 납기를 <b>09-07</b>로</td><td><b>기간 내 대상에 포함</b></td></tr>
+   <tr class="hl"><td>T01을 <b>복제</b></td><td><b>중복 주문번호 오류</b>. 조용히 두 배로 집계하면 안 됩니다</td></tr>
+   <tr><td>출고수량 &gt; 주문량, 또는 날짜 오입력</td><td><b>오류 표시</b></td></tr>
+   <tr><td>원본 파일을 <b>다시 입력</b></td><td>시험용 결과가 <b>남아 있으면 안 됨</b></td></tr></table>
+   <p class="small" style="margin:2px 0 6px"><b>검증 기록은 한 줄씩 남깁니다</b></p>`
+   + promptHTML(`시험 이름 | 바꾼 입력 | 기대 결과 | 실제 결과 | 통과 여부 | 수정 내용`),
+  done:'다섯 조건의 <b>통과 여부가 기록</b>되었고, 실패한 항목에 수정 내용이 적혀 있다.'
+});
+
+DECK.push({k:'M3 · 마무리', h:'수정하고 다시 확인합니다',
+  c:`<div class="cal warn"><span class="ch">한 번에 많이 고치지 않습니다</span>
+     <b>실패 사례 하나를 재현하고 수정</b>합니다. 수정 후 <b>기본 사례도 다시 통과</b>하는지 확인합니다.</div>
+   <pre class="dia">index_v1.html   →   (실패 하나 수정 → 기본 사례 재확인)   →   index_v2.html
+   보관                        반복                          통과한 결과</pre>
+   <div class="cal dan sm"><span class="ch">합성 자료를 실제처럼 말하지 않습니다</span>
+     별도의 ‘다음 주 실제 데이터’가 없으므로,
+     <b>합성 자료를 실제 운영 결과처럼 표현하지 않습니다.</b></div>
+   <div class="cal ok sm"><span class="ch">강의포인트</span>
+     <b>데이터가 바뀌어도 규칙이 유지되는지 확인하는 과정이 심화입니다.</b></div>`
+});
+
+/* ===================== M4 ===================== */
+DECK.push({type:'section',no:'M4',h:'직무별 개선 — 같은 도구를 팀 업무에 맞추기',
+  sub:'새 앱을 처음부터 만들지 않습니다. 오늘 만든 납기 확인 도구에 <b>직무별 기능 하나</b>를 추가합니다.',
+  tags:['16:00–16:25','결과물 — index_final.html','기능은 하나만']
+});
+
+DECK.push({k:'M4 · 강의', tm:'16:00–16:25', h:'직무별로 하나만 고릅니다',
+  c:`<table class="tb"><tr><th style="width:110px">직무</th><th>추가할 기능</th><th style="width:330px">검증할 점</th></tr>
+   <tr><td><b>영업</b></td><td>품목별 고객 안내 초안과 <b>미확정 정보 표시</b></td><td>납기 확정 표현을 만들지 않는가</td></tr>
+   <tr><td><b>물류</b></td><td>기한 경과 주문 <b>우선 확인 목록</b></td><td>주문번호와 미완료수량을 추적할 수 있는가</td></tr>
+   <tr><td><b>수입</b></td><td>선택 품목의 <b>입고 예정 확인 영역</b></td><td>예정 수량을 <b>현재고에 합산하지 않는가</b></td></tr>
+   <tr><td><b>관리</b></td><td><b>요약 보고 복사</b>와 조치 상태</td><td>사실과 사용자가 입력한 조치 상태가 구분되는가</td></tr></table>
+   <div class="cal warn sm"><span class="ch">수입 기능은 01 파일을 추가로 씁니다</span>
+     시간이 부족하면 <b>화면 설계와 시험 조건까지만</b> 작성하고 핵심 3파일 기능을 유지합니다.</div>`
+});
+
+DECK.push({k:'M4 · 활동', h:'요구사항을 한 문장으로 쓰고 요청합니다',
+  c:`<div class="q sm">“〔누가〕 담당자가 〔무엇〕을 확인하기 위해,<br>기존 화면에 〔어떤〕 기능을 추가한다.”</div>`
+   + promptHTML(`기존 index_v2.html에 아래 기능 하나만 추가하세요.
+사용자: [직무]
+필요한 행동: [확인하거나 복사할 것]
+입력과 출력: [구체적으로]
+통과 기준: [어떤 입력에서 어떤 결과가 나와야 하는지]
+오전 계산 규칙과 M3 테스트를 유지하세요.
+추가 데이터가 없으면 값을 만들어내지 말고 확인 필요로 표시하세요.
+수정된 전체 파일과 변경 요약을 제공하세요.`),
+  done:'기능 <b>하나</b>가 추가되었고, <b>M3 기본 사례가 그대로 통과</b>한다.'
+});
+
+DECK.push({k:'M4 · 마무리', h:'동료가 2분 동안 직접 써 봅니다',
+  c:`<div class="chips"><span class="chip team">옆 팀</span><span class="chip">2분</span></div>
+   <p class="lead">옆 팀에 <b>사용 목적만</b> 말하고 파일을 건넵니다.
+     2분 동안 <b>직접 찾고 클릭</b>하게 합니다. <b>막힌 지점 하나</b>를 고칩니다.</p>
+   <ul class="chk" style="font-size:16.5px">
+     <li>추가 기능의 <b>사용자와 필요성</b>을 설명할 수 있다.</li>
+     <li>원래 계산과 <b>M3 기본 사례가 유지</b>된다.</li>
+     <li>새 기능에 필요한 <b>자료와 한계</b>를 표시했다.</li></ul>
+   <div class="cal ok sm"><span class="ch">강의포인트</span>
+     <b>기능 개수보다 담당자가 다음 행동을 할 수 있는지가 중요합니다.</b></div>`
+});
+
+/* ===================== Work · Skill ===================== */
+DECK.push({type:'section',no:'Work·Skill',h:'오늘의 납기 점검 절차 재사용',
+  sub:'오전에 <b>검증한 절차</b>를 저장하고, <b>새 작업에서 다시 실행</b>합니다. 오늘 만든 기준이 다음 자료에도 적용되게 하는 단계입니다.',
+  tags:['16:25–16:50','당일 적용 활동','제작과 등록을 한 번에','등록 ≠ 정확성']
+});
+
+DECK.push({k:'Work·Skill · 강의', tm:'16:25–16:50', h:'무엇을 고정하고 무엇을 매번 받을까',
+  c:`<div class="g3">
+     <div class="card yes"><h4>고정 — 유지할 것</h4>
+       <ul class="b"><li>연결 키 점검</li><li>미완료수량 계산</li><li>품목별 집계</li>
+       <li>오류 처리</li><li>사실과 가설 구분</li><li>보고 형식</li></ul></div>
+     <div class="card"><h4>매번 입력</h4>
+       <ul class="b"><li>CSV 파일</li><li>재고 기준일</li><li>분석 기준일</li>
+       <li>확인 기간</li><li>팀의 추가 질문</li></ul></div>
+     <div class="card no"><h4>사람이 판단</h4>
+       <ul class="b"><li>납기 약속</li><li>재고 배정</li><li>고객 연락</li><li>실제 발주</li></ul></div></div>
+   <div class="cal info sm"><span class="ch">Work와 Skill의 역할이 다릅니다</span>
+     <b>Work</b>는 오늘의 <b>자료 읽기 · 분석 · 파일 작성</b>에 활용합니다.
+     <b>Skill</b>은 <b>검증한 절차를 보관</b>하는 역할입니다. 환경에 따라 사용 가능한 도구를 먼저 확인합니다.</div>`
+});
+
+DECK.push({k:'Work·Skill · 활동', h:'제작과 등록을 한 번에 진행합니다',
+  sub:'오전의 규칙 v1 · 보고 형식 · M3 테스트 기록을 준비하고, ChatGPT Work에서는 @skill-creator, Codex에서는 $skill-creator 를 선택합니다',
+  c:promptHTML(`오늘 검증한 납기 점검 절차를 training-delivery-review Skill로 만들어 등록하세요.
+첨부: 규칙 v1, 보고 형식, 테스트 기록.
+고정 절차와 매번 입력할 파일·기준일·기간을 구분하세요.
+필수 입력이 없거나 자료 기준일이 다르면 먼저 확인하세요.
+오류 행을 분리하고 원본 주문번호와 계산 근거를 남기세요.
+입고예정 물량을 현재고에 합산하거나 납기를 확정하지 마세요.
+현재 환경에서 인식하는 개인용 저장 위치를 확인해 저장하세요.
+동일 이름이 있으면 중복 생성하지 말고 내용을 비교하세요.
+완료 후 저장 위치, 적용 범위, 새 작업에서 선택하는 방법을 알려주세요.
+저장이 불가능하면 초안 작성과 등록 완료를 구분하세요.`,'sm')
+});
+
+DECK.push({k:'Work·Skill · 활동', h:'등록 확인과 업무 정확성을 따로 봅니다',
+  c:`<div class="g2">
+     <div class="card"><h4>① 등록 확인</h4>
+       <ol class="b" style="font-size:14.5px"><li>생성된 <span class="mono">SKILL.md</span>의 기준을 <b>오전 규칙과 비교</b>합니다.</li>
+       <li>Skill 목록에서 이름을 찾습니다. ChatGPT는 <b>@</b>, Codex CLI·IDE는 <b>/skills</b> 또는 <b>$</b>.</li></ol></div>
+     <div class="card yes"><h4>② 업무 정확성 검증</h4>
+       <ol class="b" style="font-size:14.5px" start="3"><li><b>새 작업</b>에서 Skill을 선택하고 M3 합성 자료와 기준일·종료일을 제공합니다.</li>
+       <li>P-A의 <b>대상 합계 150 · 현재고 120 · 참고 부족수량 30</b>과 기한 경과 표지를 확인합니다.</li>
+       <li>P-A 현재고를 <b>200</b>으로 바꾸면 <b>부족수량 0</b>, 기한 경과 표지는 유지되는지 확인합니다.</li></ol></div></div>
+   <div class="cal warn sm"><span class="ch">목록에 보이는 것과 맞게 도는 것은 다릅니다</span>
+     목록 표시와 저장 위치는 <b>등록 확인</b>, 기대값과의 대조는 <b>업무 정확성 검증</b>입니다.</div>`,
+  done:'새 작업에서 Skill을 선택해 <b>기존 대화 없이</b> 합성 테스트를 통과했다.'
+});
+
+DECK.push({k:'Work·Skill · 마무리', h:'완료 기준과 대안',
+  c:`<ul class="chk" style="font-size:17px">
+     <li><b>날짜와 이번 수량</b>을 고정 절차에 묶어두지 않았다.</li>
+     <li>새 작업에서 <b>Skill을 선택</b>할 수 있다.</li>
+     <li>기존 대화 없이 <b>합성 테스트를 통과</b>했다.</li></ul>
+   <div class="cal info"><span class="ch">등록 기능이 없는 환경이라면</span>
+     절차를 <b>파일로 보관</b>하고 새 작업에 직접 제공합니다.
+     결과에 <b>‘수동 지시문 적용’</b>이라고 기록합니다. 그래도 목표는 똑같이 달성됩니다.</div>
+   <div class="cal gray sm"><span class="ch">HTML 도구와 Skill은 역할이 다릅니다</span>
+     HTML은 <b>정해진 계산과 화면</b>을 제공하고, Skill은 <b>AI에게 적용할 절차</b>를 제공합니다.
+     같은 기준으로 관리하되 <b>서로 자동 연결된 것으로 설명하지 않습니다.</b></div>
+   <div class="cal ok sm"><span class="ch">강의포인트</span>
+     <b>“Skill을 하나 만들었다”보다 “다음 자료에도 같은 기준이 적용된다”가 목표입니다.</b></div>`
+});
+
+/* ===================== 마무리 ===================== */
+DECK.push({type:'section',no:'마무리',h:'인수인계 — 다음 자료로 다시 쓰는 방법',
+  sub:'오늘 완성한 하나의 업무를 묶어서 넘깁니다. <b>다른 사람이 다시 실행할 수 있어야</b> 인수인계가 끝납니다.',
+  tags:['17:00–17:15','결과물 — 최종 묶음','다음 실행 계획']
+});
+
+DECK.push({k:'마무리 · 활동', tm:'17:00–17:15', h:'제출할 묶음을 모읍니다',
+  c:`<table class="tb"><tr><th style="width:150px">구분</th><th>제출물</th></tr>
+   <tr><td><b>분석 근거</b></td><td>품목별 확인표 · 품질 점검표 · 납기 점검 보고서</td></tr>
+   <tr><td><b>업무도구</b></td><td><span class="mono">index_final.html</span> 과 규칙 v1</td></tr>
+   <tr><td><b>검증 · 재사용</b></td><td>M3 테스트 기록 · Skill 또는 수동 절차 파일 · 실행 안내</td></tr></table>
+   <div class="cal info"><span class="ch">파일 이름과 기준일을 적습니다</span>
+     <b>두 개의 별도 앱을 제출하는 과제가 아닙니다.</b>
+     하나의 업무를 끝까지 끌고 간 흔적이 남아 있으면 됩니다.</div>`
+});
+
+DECK.push({k:'마무리 · 활동', h:'동료가 다시 실행하도록 설명합니다',
+  c:promptHTML(`사용 목적:
+필요한 파일과 필수 열:
+자료 기준일·분석 기준일·확인 기간:
+실행 순서:
+정상 결과 확인 방법:
+오류가 날 때 확인할 것:
+사람이 결정해야 하는 것:
+등록한 Skill 이름·저장 범위 또는 수동 절차 위치:`)
+   + `<div class="cal ok sm"><span class="ch">팀별 1분 공유 — 세 문장만</span>
+     “우리 도구는 〔누구〕 담당자의 〔무엇〕 확인을 돕습니다.”<br>
+     “새 자료에서는 〔무엇〕을 바꾸고, 〔무엇〕을 검증합니다.”<br>
+     “현재 남은 한계는 〔무엇〕입니다.”</div>`
+});
+
+DECK.push({k:'마무리 · 활동', h:'교육 후 작은 적용 계획',
+  c:`<div class="flow">
+     <div class="fs"><div class="t1">첫 주</div><div class="t2">일반화한 자료로<br><b>동료 1명이 재실행</b></div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">기록</div><div class="t2">수정할 <b>오류 1개</b>를<br>적어 둔다</div></div><div class="ar">→</div>
+     <div class="fs"><div class="t1">그 다음</div><div class="t2">회사가 승인한 <b>자료·환경</b>과<br>담당자 검토 범위를 정한 뒤 적용</div></div></div>
+   <div class="cal warn"><span class="ch">평가는 기능 수로 하지 않습니다</span>
+     <b>근거 추적</b> · <b>새 데이터 재실행</b> · <b>예외 처리</b> · <b>동료 사용 가능 여부</b> — 이 네 가지로 봅니다.</div>
+   <div class="cal gray sm"><span class="ch">강의포인트</span>
+     <b>다른 사람이 다음번에 다시 실행할 수 있어야 인수인계가 끝납니다.</b></div>`
+});
+
+/* ===================== 부록 ===================== */
+DECK.push({type:'section',no:'부록',h:'재실행 체크리스트와 문제 해결',
+  sub:'수업 중 막힐 때 펼쳐 보는 자료입니다. 1차의 검토 기준을 그대로 이어 씁니다.',
+  tags:['결과 검토 7항목','증상별 대처','용어 정리']
+});
+
+DECK.push({k:'부록 · 결과 검토', h:'AI 결과를 넘기기 전 일곱 가지',
+  c:`<table class="tb sm"><tr><th style="width:150px">항목</th><th>확인 질문</th></tr>
+   <tr><td><b>사실성</b></td><td>원본 주문과 숫자가 일치하는가?</td></tr>
+   <tr><td><b>근거</b></td><td>원본 주문번호와 계산식으로 <b>돌아갈 수 있는가?</b></td></tr>
+   <tr><td><b>표현</b></td><td>가능성을 <b>확정처럼</b> 쓰지 않았는가?</td></tr>
+   <tr><td><b>목적</b></td><td>담당자가 <b>무엇을 확인할지</b> 알 수 있는가?</td></tr>
+   <tr><td><b>실행 가능성</b></td><td>추가 데이터 없이 <b>불가능한 행동</b>을 요구하지 않는가?</td></tr>
+   <tr><td><b>보안</b></td><td>교육용 가상 자료만 사용했는가?</td></tr>
+   <tr><td><b>책임</b></td><td>납기 약속 · 재고 배정은 <b>사람이 결정</b>하는가?</td></tr></table>`
+});
+
+DECK.push({k:'부록 · 문제 해결', h:'막힐 때 — 증상별로 확인합니다',
+  c:`<table class="tb xs"><tr><th style="width:220px">증상</th><th style="width:250px">먼저 확인</th><th>수정 요청</th></tr>
+   <tr><td>재고가 과하게 커짐</td><td>주문 행마다 현재고를 합산했는지</td><td>주문을 품목별로 집계한 후 재고를 연결하세요.</td></tr>
+   <tr><td>미완료수량이 음수</td><td>출고 중복 · 과다수량 · 연결 키</td><td>해당 행을 오류로 분리하고 원본을 보여주세요.</td></tr>
+   <tr><td>예정 출고가 완료로 계산됨</td><td>실제일 · 상태 · 기준일 조건</td><td>기준일에 완료된 출고만 반영하세요.</td></tr>
+   <tr><td>종료일 주문이 빠짐</td><td>기간 끝 포함 여부</td><td>D 이상 D+7 이하를 포함하세요.</td></tr>
+   <tr><td>입고 예정만으로 납기 가능 표시</td><td>예정 물량을 현재고에 합산했는지</td><td>배정 · 가용성 확인 질문으로 남기세요.</td></tr>
+   <tr><td>파일 교체 후 값이 남음</td><td>상태 초기화와 재계산</td><td>새 파일 입력 시 이전 계산을 지우고 다시 계산하세요.</td></tr>
+   <tr><td>HTML이 글자로 열림</td><td>확장자와 저장 형식</td><td>UTF-8 HTML로 저장하고 파일명을 확인하세요.</td></tr>
+   <tr><td>Skill이 목록에 없음</td><td>등록 위치 · 범위 · 파일명</td><td>저장과 등록을 구분해 확인하세요.</td></tr></table>`
+});
+
+DECK.push({k:'부록 · 문제 해결', h:'오류 설명 틀과 용어',
+  c:promptHTML(`입력 파일·날짜:
+재현 순서:
+기대 결과와 계산:
+실제 결과:
+유지해야 할 기능:
+수정 후 다시 실행할 테스트:`)
+   + `<table class="tb sm"><tr><th style="width:150px">용어</th><th>뜻</th></tr>
+   <tr><td><b>기준일</b></td><td>판단을 <b>멈춰서 보는 시점</b></td></tr>
+   <tr><td><b>스냅샷</b></td><td>그 시점의 상태</td></tr>
+   <tr><td><b>연결 키</b></td><td>자료의 <b>같은 대상</b>을 찾는 값 (주문번호 · 품목코드)</td></tr>
+   <tr><td><b>품목별 집계</b></td><td>같은 품목의 <b>대상 주문량을 모으는</b> 과정</td></tr>
+   <tr class="hl"><td><b>참고 부족수량</b></td><td><b>교육용 비교값</b>이며 실제 부족 · 납기 불가 확정이 아닙니다</td></tr></table>
+   <div class="cal gray sm"><span class="ch">더 필요할 때</span>
+     Work·Skill의 상세 등록, 사이트 배포·API·MCP 연동은 <b>각각의 참고 페이지</b>에서 필요할 때 확인합니다.</div>`
+});
+
+DECK.push({type:'end',h:'수고하셨습니다',
+  c:`오늘은 기능을 많이 만든 날이 아니라, <b>하나의 업무를 끝까지 끌고 간 날</b>입니다.<br><br>
+     숫자를 <b>원본까지 따라갈 수 있고</b>, 새 자료에서도 <b>같은 기준이 작동하고</b>,
+     <b>동료가 다시 실행할 수 있다면</b> — 오늘의 목표는 달성되었습니다.`,
+  note:'Data Thinking Lab · 이승묵 Ph.D &nbsp;|&nbsp; lee.seungmook@datathinkinglab.com &nbsp;|&nbsp; datathinkinglab.com'
+});
+
+/* ============ 렌더러 ============ */
+const TRACK=document.getElementById('track');
+document.getElementById('toclogo').src=LOGO_LIGHT;
+
+function footHTML(i,n,onDark){
+  return '<div class="foot">'
+    + '<div class="fl"><img src="'+(onDark?LOGO_LIGHT:LOGO_DARK)+'" alt="Data Thinking Lab">'
+    + '<span><b>'+COURSE+'</b></span></div>'
+    + '<div class="fr"><span class="cr">'+COPY+'</span><span class="pgno">'+(i+1)+' / '+n+'</span></div>'
+    + '</div>';
+}
+
+function slideHTML(s,i,n){
+  if(s.type==='cover'){
+    return '<section class="slide cover"><img class="clogo" src="'+LOGO_LIGHT+'" alt="Data Thinking Lab">'
+      +'<div class="cv1">'+s.eyebrow+'</div>'
+      +'<h1>'+s.h+'</h1><div class="cv2">'+s.sub+'</div>'
+      +'<div class="cvm">'+s.meta.map(m=>'<div><b>'+m[0]+'</b>'+m[1]+'</div>').join('')+'</div>'
+      +footHTML(i,n,true)+'</section>';
+  }
+  if(s.type==='section'){
+    return '<section class="slide section"><img class="slogo" src="'+LOGO_LIGHT+'" alt="Data Thinking Lab">'
+      +'<div class="sn">'+s.no+'</div><h1>'+s.h+'</h1>'
+      +'<div class="ss">'+s.sub+'</div>'
+      +'<div class="sg">'+(s.tags||[]).map(t=>'<span>'+t+'</span>').join('')+'</div>'
+      +footHTML(i,n,true)+'</section>';
+  }
+  if(s.type==='end'){
+    return '<section class="slide end"><img class="clogo" src="'+LOGO_LIGHT+'" alt="Data Thinking Lab">'
+      +'<h1>'+s.h+'</h1><div class="el">'+s.c+'</div>'
+      +'<div class="ec">'+s.note+'</div>'+footHTML(i,n,true)+'</section>';
+  }
+  const kick=s.k?'<div class="kick">'+s.k+(s.tm?'<span class="tm">'+s.tm+'</span>':'')+'</div>':'';
+  const head=s.h?'<h1 class="t">'+s.h+(s.sub?'<small>'+s.sub+'</small>':'')+'</h1>':'';
+  const done=s.done?'<div class="done"><span class="i">'+(s.doneLabel||'✅ 완료 신호')+'</span><span>'+s.done+'</span></div>':'';
+  return '<section class="slide">'+kick+head+'<div class="body"><div class="bin">'+(s.c||'')+'</div></div>'
+    +done+footHTML(i,n,false)+'</section>';
+}
+
+TRACK.innerHTML=DECK.map((s,i)=>slideHTML(s,i,DECK.length)).join('');
+const SL=[...TRACK.querySelectorAll('.slide')];
+document.getElementById('pgt').textContent=DECK.length;
+
+/* ☐ 표시가 든 표 칸을 눌러서 체크할 수 있게 만듭니다 */
+TRACK.querySelectorAll('td').forEach(td=>{
+  if(td.textContent.trim()==='☐') td.classList.add('tick');
+});
+
+/* 내용이 넘치는 슬라이드는 본문을 살짝 축소해 한 장에 맞춥니다 */
+function autofit(){
+  SL.forEach(s=>{
+    const bd=s.querySelector('.body'); if(!bd) return;
+    const bin=bd.querySelector('.bin'); if(!bin) return;
+    bin.style.transform=''; bin.style.width=''; bd.classList.remove('mid');
+    const was=s.classList.contains('on'); s.classList.add('on');
+    const avail=bd.clientHeight;
+    let k=1;
+    if(bin.offsetHeight>avail+1){
+      while(bin.offsetHeight*k>avail+1 && k>0.58){
+        k=Math.round((k-0.025)*1000)/1000;
+        bin.style.width=(100/k)+'%';
+        bin.style.transform='scale('+k+')';
+      }
+    }else if(bin.offsetHeight<avail*0.82){
+      /* 여백이 많이 남는 장은 살짝 키우고 세로 가운데로 */
+      while(k<1.14){
+        const nk=Math.round((k+0.02)*1000)/1000;
+        bin.style.width=(100/nk)+'%';
+        bin.style.transform='scale('+nk+')';
+        if(bin.offsetHeight*nk>avail*0.94){ break; }
+        k=nk;
+      }
+      bin.style.width=(100/k)+'%';
+      bin.style.transform=k>1?'scale('+k+')':'';
+    }
+    if(!was) s.classList.remove('on');
+  });
+}
+
+/* ============ 안내 토스트 ============ */
+let toastT=null;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('on');
+  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('on'),2200);
+}
+
+/* ============ 프롬프트 복사 ============ */
+function copyText(txt){
+  return new Promise(resolve=>{
+    if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
+      navigator.clipboard.writeText(txt).then(()=>resolve(true),()=>resolve(legacy()));
+    } else { resolve(legacy()); }
+    function legacy(){
+      try{
+        const t=document.createElement('textarea');
+        t.value=txt;
+        t.setAttribute('readonly','');
+        t.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;padding:0;border:none;opacity:0;';
+        document.body.appendChild(t);
+        t.focus(); t.select(); t.setSelectionRange(0,t.value.length);
+        const done=document.execCommand('copy');
+        document.body.removeChild(t);
+        return done;
+      }catch(_){ return false; }
+    }
+  });
+}
+
+/* 프롬프트 전체를 드래그 선택해 둡니다(복사가 막힌 환경의 마지막 수단) */
+function selectNode(node){
+  try{
+    const r=document.createRange(); r.selectNodeContents(node);
+    const s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }catch(_){}
+}
+
+TRACK.addEventListener('click',e=>{
+  const b=e.target.closest('.cp');
+  if(b){
+    e.preventDefault(); e.stopPropagation();
+    const pre=b.parentElement.querySelector('pre');
+    copyText(pre.innerText).then(okFlag=>{
+      if(okFlag){
+        b.textContent='복사됨'; b.classList.add('done');
+        toast('프롬프트를 복사했습니다. AI 창에 붙여넣으세요.');
+        setTimeout(()=>{b.textContent='복사';b.classList.remove('done');},1600);
+      }else{
+        selectNode(pre);
+        b.textContent='Ctrl+C';
+        toast('프롬프트를 선택했습니다. Ctrl+C(Mac은 ⌘+C)를 누르세요.');
+        setTimeout(()=>{b.textContent='복사';},2600);
+      }
+    });
+    return;
+  }
+  /* 체크 항목 토글 */
+  const li=e.target.closest('ul.chk > li');
+  if(li){ e.stopPropagation(); li.classList.toggle('done'); saveMarks(); return; }
+  const td=e.target.closest('td.tick');
+  if(td){ e.stopPropagation(); td.classList.toggle('done');
+    td.textContent=td.classList.contains('done')?'☑':'☐'; saveMarks(); return; }
+});
+
+/* 체크 상태를 이 브라우저에만 임시 저장합니다 */
+const MK='dtl-doosung-deck-marks';
+function saveMarks(){
+  try{
+    const on=[];
+    document.querySelectorAll('ul.chk>li,td.tick').forEach((el,i)=>{ if(el.classList.contains('done')) on.push(i); });
+    localStorage.setItem(MK,JSON.stringify(on));
+  }catch(_){}
+}
+function loadMarks(){
+  try{
+    const on=JSON.parse(localStorage.getItem(MK)||'[]');
+    const all=[...document.querySelectorAll('ul.chk>li,td.tick')];
+    on.forEach(i=>{ const el=all[i]; if(!el) return; el.classList.add('done');
+      if(el.tagName==='TD') el.textContent='☑'; });
+  }catch(_){}
+}
+function clearMarks(){
+  document.querySelectorAll('ul.chk>li.done,td.tick.done').forEach(el=>{
+    el.classList.remove('done'); if(el.tagName==='TD') el.textContent='☐';
+  });
+  saveMarks(); toast('체크를 모두 지웠습니다.');
+}
+
+/* ============ 이동 ============ */
+let cur=0;
+function show(i){
+  cur=Math.max(0,Math.min(DECK.length-1,i));
+  SL.forEach((el,k)=>el.classList.toggle('on',k===cur));
+  document.getElementById('pgn').textContent=cur+1;
+  document.getElementById('bar').style.width=((cur+1)/DECK.length*100)+'%';
+  try{history.replaceState(null,'','#'+(cur+1));}catch(_){}
+}
+function go(d){show(cur+d);}
+
+function fit(){
+  const pad=44;
+  const sx=(window.innerWidth-pad)/1280, sy=(window.innerHeight-pad)/720;
+  TRACK.style.transform='scale('+Math.min(sx,sy,1.35)+')';
+}
+window.addEventListener('resize',fit);
+
+const BLACK=document.getElementById('black');
+document.addEventListener('keydown',e=>{
+  const t=document.getElementById('toc');
+  if(e.key==='Escape'){ t.classList.remove('on'); BLACK.classList.remove('on'); return; }
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  if(t.classList.contains('on')) return;
+  if(BLACK.classList.contains('on')){ BLACK.classList.remove('on'); return; }
+  if(['ArrowRight','PageDown','ArrowDown'].includes(e.key)||e.key===' '||e.key==='Enter'){go(1);e.preventDefault();}
+  else if(['ArrowLeft','PageUp','ArrowUp'].includes(e.key)||e.key==='Backspace'){go(-1);e.preventDefault();}
+  else if(e.key==='Home'){show(0);}
+  else if(e.key==='End'){show(DECK.length-1);}
+  else if(e.key==='o'||e.key==='O'||e.key==='ㅐ'){openToc();}
+  else if(e.key==='f'||e.key==='F'||e.key==='ㄹ'){toggleFull();}
+  else if(e.key==='p'||e.key==='P'){window.print();}
+  else if(e.key==='b'||e.key==='B'||e.key==='ㅠ'){BLACK.classList.add('on');}
+  else if(e.key==='t'||e.key==='T'||e.key==='ㅅ'){toggleTimer();}
+  else if(e.key==='c'||e.key==='C'||e.key==='ㅊ'){clearMarks();}
+});
+BLACK.addEventListener('click',()=>BLACK.classList.remove('on'));
+
+/* 화면을 눌러도 넘어갑니다 — 단, 버튼·체크·프롬프트·표는 그대로 씁니다 */
+document.getElementById('stage').addEventListener('click',e=>{
+  if(e.target.closest('button, a, input, textarea, select, .pw, pre, ul.chk, td.tick')) return;
+  if(window.getSelection && String(window.getSelection())) return;   /* 글자를 끌어 선택한 경우 */
+  const r=TRACK.getBoundingClientRect();
+  go(e.clientX < r.left + r.width*0.28 ? -1 : 1);
+});
+
+/* ============ 세션 타이머 ============ */
+let tSec=0, tInt=null;
+const TV=document.getElementById('tv'), TB=document.getElementById('timer'), TS=document.getElementById('tstart');
+function tRender(){
+  const m=String(Math.floor(tSec/60)).padStart(2,'0'), s=String(tSec%60).padStart(2,'0');
+  TV.textContent=m+':'+s;
+}
+function toggleTimer(){
+  if(tInt){ clearInterval(tInt); tInt=null; TS.textContent='시작'; TB.classList.remove('run'); }
+  else { tInt=setInterval(()=>{tSec++;tRender();},1000); TS.textContent='정지'; TB.classList.add('run'); }
+}
+TS.onclick=toggleTimer;
+document.getElementById('treset').onclick=()=>{ tSec=0; tRender(); };
+function toggleFull(){
+  if(!document.fullscreenElement){ (document.documentElement.requestFullscreen||function(){}).call(document.documentElement); }
+  else if(document.exitFullscreen){ document.exitFullscreen(); }
+}
+document.getElementById('bprev').onclick=e=>{e.stopPropagation();go(-1);};
+document.getElementById('bnext').onclick=e=>{e.stopPropagation();go(1);};
+document.getElementById('bfull').onclick=toggleFull;
+document.getElementById('bprint').onclick=()=>window.print();
+function openToc(){
+  const t=document.getElementById('toc');
+  t.classList.add('on');
+  const q=document.getElementById('tocq');
+  q.value=''; filterToc(''); setTimeout(()=>q.focus(),30);
+}
+document.getElementById('btoc').onclick=openToc;
+document.getElementById('btocx').onclick=()=>document.getElementById('toc').classList.remove('on');
+
+let tx=0,ty=0;
+document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)) go(dx<0?1:-1);
+},{passive:true});
+
+/* ============ 목차 ============ */
+(function(){
+  const groups=[]; let g=null;
+  DECK.forEach((s,i)=>{
+    if(s.type==='section'||s.type==='cover'){ g={t:(s.type==='cover'?'과정 개요':s.no+'. '+s.h),items:[]}; groups.push(g); }
+    if(!g){ g={t:'과정 개요',items:[]}; groups.push(g); }
+    g.items.push({i:i,label:(s.h||s.sub||'—').replace(/<[^>]+>/g,'')});
+  });
+  document.getElementById('tocb').innerHTML=groups.map(gr=>
+    '<div class="grp"><div class="gt">'+esc(gr.t)+'</div><div class="row">'
+    + gr.items.map(it=>'<div class="it" data-i="'+it.i+'"><i>'+(it.i+1)+'</i>'+esc(it.label)+'</div>').join('')
+    + '</div></div>').join('');
+  document.getElementById('tocb').addEventListener('click',e=>{
+    const it=e.target.closest('.it'); if(!it) return;
+    show(+it.dataset.i); document.getElementById('toc').classList.remove('on');
+  });
+})();
+
+/* 목차 검색 */
+function filterToc(q){
+  q=(q||'').trim().toLowerCase();
+  document.querySelectorAll('#tocb .grp').forEach(gr=>{
+    let hit=0;
+    gr.querySelectorAll('.it').forEach(it=>{
+      const on=!q || it.textContent.toLowerCase().indexOf(q)>=0;
+      it.style.display=on?'':'none'; if(on) hit++;
+    });
+    gr.style.display=hit?'':'none';
+  });
+}
+document.getElementById('tocq').addEventListener('input',e=>filterToc(e.target.value));
+document.getElementById('tocq').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    const first=document.querySelector('#tocb .it:not([style*="none"])');
+    if(first){ show(+first.dataset.i); document.getElementById('toc').classList.remove('on'); }
+  }
+});
+
+const start=parseInt((location.hash||'#1').slice(1),10);
+fit(); autofit(); loadMarks(); tRender(); show(isNaN(start)?0:start-1);
+window.addEventListener('beforeprint',autofit);
+setTimeout(()=>document.getElementById('hint').classList.add('hide'),6500);
+</script></body></html>
